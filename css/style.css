@@ -1,0 +1,72 @@
+.form-inline {
+	position: absolute; 
+	left: 15px;
+	top: 10px;
+	z-index: 1;
+}
+.form-inline label {
+	color: white;
+}
+.form-inline input {
+	height: 25px;
+}
+#container{
+	position: absolute;
+	width: 75%;
+	height: 800px;
+}
+#news{
+	position: absolute;
+	width: 25%;
+	right: 0;
+	height: 800px;
+	overflow-y: scroll;
+	background: #2e3035;
+}
+#news .header {
+	height: 40px;
+	padding: 10px 20px 0;
+	color: white;
+	font-family: "Roberto Condensed";
+}
+#news .header span {
+	font-size: 16px;
+}
+#news .header .btn-default {
+	float: right;
+	height: 25px;
+	line-height: 0
+}
+#news .content {
+	background: white;
+	height: 100%;
+	padding: 10px;
+}
+#news .content .eachContent{
+	margin-top: 5px;
+	padding:3px;
+	border: solid 1px #ccc;
+}
+#news .content .eachContent.highlight{
+	border:1px solid red;
+}
+#news .content .eachContent .flag{
+	font-size: 11px;
+	border: 1px solid black;
+	font-weight: bold;
+	-moz-box-shadow:    1px 1px 2px 3px #ccc;
+  	-webkit-box-shadow: 1px 1px 2px 3px #ccc;
+  	box-shadow:         1px 1px 2px 3px #ccc;
+  	float:left;
+  	padding: 3px;
+	cursor: pointer;
+}
+#news .content .eachContent .right{
+	font-size: 9px;
+	float: left;
+	margin-left: 5%;
+	width: 80%;
+}
+#news .content .eachContent .right .rightText{
+	color: #00f;
+}
