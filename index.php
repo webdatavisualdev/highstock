@@ -1,21 +1,29 @@
 <!DOCTYPE html>
+<head>
+<title></title>
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="css/style.css" rel="stylesheet">
-<body>
+<script src="https://use.typekit.net/ulv2nrf.js"></script>
+<script>try{Typekit.load({async: true});} finally {}</script>
+</head>   
+<body ng-app="myApp" ng-controller="myCtrl">
 	<div id="cover"></div>
 	<form class="form-inline dropdown">
 		<div class="form-group">
-			<label><i class="fa fa-bar-chart"></i>Compare:</label>
+			<label><img src="images/chart.png">Compare:</label>
 			<input type="text" class="form-control" placeholder="Search customer company name/ticker">
 			<ul class="nav nav-tabs dropdown-menu">
 				<li class="active"><a data-toggle="tab" id="type1">Type1</a></li>
 				<li><a data-toggle="tab" id="type2">Type2</a></li>
 				<li><a data-toggle="tab" id="other"><i class="fa fa-search"></i></a></li>
 				<div class="tab-content">
-					<table class="table"></table>
+					<table class="table">
+						<tr><th>Company Name</th><th>Ticker</th><th>ISIN</th><th>Related Rate</th></tr>
+						<tr ng-repeat="d in typeData track by $index" ng-click="selectCompany($index)"><td>{{d.company}}</td><td>{{d.ticker}}</td><td>{{d.isin}}</td><td>{{d.related}}</td></tr>
+					</table>
 				</div>			
 			</ul>
 		</div>
@@ -26,8 +34,28 @@
 			<span>News Developments</span>
 			<button class="btn btn-default btn-news">+ News Subjects</button>
 			<div class="dropdown-news">
-				<input type="checkbox">
-				<ul class="categories"></ul>
+				<div class="checkbox">
+					<label><input type="checkbox"> Select All</label>
+				</div>
+				<ul class="categories">
+					<li ng-repeat="d in categories track by $index" ng-class="getCategoryClass(d)"><a style='width:100px' class='category-name'><span ng-click="clickCategoryItem(d)">{{d.name}}</span></a><img src='images/edit.png' ng-click="showSecondCategories(d.name)"></li>
+				</ul>
+			</div>
+			<div class="second-category-dropdown">
+				<div class="row">
+					<div class="col-xs-6">
+						<span>{{category}}</span>
+					</div>
+					<div class="col-xs-6">
+						<div class="checkbox">
+							<label><input type="checkbox"> Select All</label>
+							<span ng-click="closeSecondDropdown()"><i class="fa fa-close"></i></span>
+						</div>
+					</div>
+				</div>
+				<ul class="second-categories">
+					<li ng-repeat="d in secondCategories track by $index" ng-class="getClass(d)" ng-click="clickItem(d)"><a class='category-name'><span>{{d}}</span></a></li>
+				</ul>
 			</div>
 		</div>
 		<div class="content">
@@ -49,7 +77,6 @@
 	        </div>
 	    </div>
 	</div>
-</body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	var dateGroupIndex, newsData, chart, totalData;
@@ -62,12 +89,17 @@
 <script src="js/highstock.src.js"></script>
 <script src="js/flags-grouping.js"></script>
 <script src="js/d3.v4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script src="js/script.js"></script>
 <script>
-	var companyData;
-	var currentType;
-	var categories = [];
-	var newsSections;
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+	$scope.companyData;
+	$scope.typeData = [];
+	$scope.currentType;
+	$scope.categories = [];
+	$scope.newsSections;
+	$scope.secondCategories = [];
 
 	$(document).ready(function(){
 		var chartData3;
@@ -85,17 +117,23 @@
 			});
 		});
 		d3.csv("data/company.csv", function(data) {
-			companyData = data;
-			addTableBody("type1");
+			$scope.companyData = data;
+			$scope.addTableBody("type1");
 		});
 		d3.csv("data/news-category.csv", function(data) {
-			newsSections = data;
+			$scope.newsSections = data;
+			var selected = "N";
 			data.map(function(d) {
-				if(categories.indexOf(d.category) < 0) {
-					categories.push(d.category);
+				if(d.default == "Y" && $scope.categories.length != 0 && $scope.categories[$scope.categories.length - 1].name == d.category) {
+					selected = "Y";
+				}
+				if($scope.categories.length == 0 || $scope.categories[$scope.categories.length - 1].name != d.category) {
+					$scope.categories.push({name: d.category, selected: selected, count: 0});
+					selected = "N";
 				}
 			});
-			addCategories();
+			console.log(data);
+			$scope.$apply();
 		});
 
 		$('body').on('click', function(e) {
@@ -184,54 +222,45 @@
 
 		$("#cover").on("click", function() {
 			$(".nav-tabs").hide();
+			$(".dropdown-news").hide();
 			$("#cover").hide();
+			$(".second-category-dropdown").hide();
 		});
 
 		$("#type1").on("click", function() {
-			addTableBody("type1");
+			$scope.addTableBody("type1");
 		});
 
 		$("#type2").on("click", function() {
-			addTableBody("type2");
+			$scope.addTableBody("type2");
 		});
 
 		$("#other").on("click", function() {
-			addTableBody("other");
+			$scope.addTableBody("other");
 		});
 
 		$(".btn-news").on("click", function() {
 			$(".dropdown-news").show();
+			$("#cover").show();
 		});
 	});
 
-	function addTableBody(type) {
-		var table = $(".tab-content table");
-		var th = "<tr><th>Company Name</th><th>Ticker</th><th>ISIN</th><th>Related Rate</th></tr>";
-		table.html("");
-		table.append(th);
-		currentType = type;
-		var index = 1;
-		companyData.map(function(d) {
+	$scope.addTableBody = function (type) {
+		$scope.currentType = type;
+		$scope.typeData = [];
+		$scope.companyData.map(function(d) {
 			if(d.type == type) {
-				tr = "<tr onClick='selectCompany("+index+")'><td>"+d.company+"</td><td>"+d.ticker+"</td><td>"+d.isin+"</td><td>"+d.related+"</td></tr>";
-				table.append(tr);
-				index ++;
+				$scope.typeData.push(d);
 			}
 		});
+		$scope.$apply();
 	}
 
-	function addCategories() {
-		var section = $(".dropdown-news .categories");
-		categories.map(function(c) {
-			var li = "<li style='background-size:"+100+"px'><a>"+c+"</a><div class='category-name'></div><a class='btn-edit-category'></a></li>";
-			section.append(li);
-		});
-	}
-
-	function selectCompany(index) {
-		var i = 1;
-		companyData.map(function(data) {
-			if(data.type == currentType) {
+	$scope.selectCompany = function(index) {
+		var i = 0;
+		console.log(index);
+		$scope.companyData.map(function(data) {
+			if(data.type == $scope.currentType) {
 				if(i == index) {
 					$(".form-control").val(data.company);
 				}
@@ -239,4 +268,82 @@
 			}
 		});
 	}
+
+	$scope.showSecondCategories = function(category) {
+		$scope.secondCategories = [];
+		$scope.category = category;
+		$scope.newsSections.map(function(d) {
+			if(d.category == category) {
+				$scope.secondCategories.push(d.name);
+			}
+		});
+		console.log($scope.secondCategories);
+		$(".second-category-dropdown").show();
+	}
+
+	$scope.clickItem = function(name) {
+		$scope.newsSections.map(function(d) {
+			if(d.name == name && d.default == "N") {
+				d.default = "Y";
+			} else if(d.name == name && d.default == "Y") {
+				d.default = "N";
+			}
+		});
+		$scope.refreshFilters();
+	}
+
+	$scope.getClass = function(name) {
+		var className = '';
+		$scope.newsSections.map(function(d) {
+			if(d.name == name && d.default == "N") {
+				className = '';
+			} else if(d.name == name && d.default == "Y") {
+				className = 'selected';
+			}
+		});
+		return className;
+	}
+
+	$scope.clickCategoryItem = function(data) {
+		$scope.categories.map(function(d) {
+			if(d.name == data.name && data.selected == "N") {
+				d.selected = "Y";
+			} else if(d.name == data.name && data.selected == "Y") {
+				d.selected = "N";
+			}
+		});
+	}
+
+	$scope.getCategoryClass = function(data) {
+		var className = '';
+		$scope.categories.map(function(d) {
+			if(d.name == data.name && data.selected == "N") {
+				className = '';
+			} else if(d.name == data.name && data.selected == "Y") {
+				className = 'selected';
+			}
+		});
+		return className;
+	}
+
+	$scope.refreshFilters = function() {
+		var selected = "N";
+		$scope.categories.map(function(c) {
+			$scope.newsSections.map(function(d) {
+				if(d.default == "Y" && c.name == d.category) {
+					selected = "Y";
+					c.selected = "Y";
+				}
+			});
+			if(selected == "N") {
+				c.selected = "N";
+			}
+		});		
+	}
+
+	$scope.closeSecondDropdown = function() {
+		$(".second-category-dropdown").hide();
+	}
+});
 </script>
+</body>

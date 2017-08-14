@@ -11,6 +11,9 @@ html, body {
 .form-inline label {
 	color: white;
 }
+.form-inline label img {
+	margin-right: 5px;
+}
 .form-inline input {
 	height: 25px;
 }
@@ -52,10 +55,10 @@ html, body {
 	height: 40px;
 	padding: 10px 20px 0;
 	color: white;
-	font-family: "Roberto Condensed";
 }
 #news .header span {
 	font-size: 16px;
+	font-family: "Myriad Pro";
 }
 #news .header .btn-default {
 	float: right;
@@ -104,26 +107,60 @@ html, body {
 	position: relative;
 	top: 5px;
 }
-
 .dropdown-news .categories {
 	padding-left: 0;
 }
-
 .dropdown-news li {
 	list-style: none;
-	padding: 2px 5px;
 	margin: 3px 0;
 }
-
 .dropdown-news li a {
 	color: white;
 	text-decoration: none;
+	display: block;
+	border-radius: 5px;
+	padding: 3px 5px;
 }
-
-.dropdown-news li:nth-child(even) {
+.dropdown-news li a span {
+	display: block;
+	width: 220px;
+}
+li .category-name {
+	background: #bfbfbf;
+}
+li.selected .category-name {
 	background: #5b9bd5;
 }
-
-.dropdown-news li:nth-child(odd) {
-	background: #bfbfbf;
+.dropdown-news li img {
+	float: right;
+	margin-top: -25px;
+}
+.second-category-dropdown {
+	display: none;
+	position: absolute;
+	z-index: 2;
+	top: 60px;
+	background: white;
+	width: 250px;
+	left: 25px;
+	color: black;
+	border-radius: 10px;
+}
+.second-category-dropdown .col-xs-6:first-child {
+	padding: 10px 25px;
+}
+.second-category-dropdown ul {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.second-category-dropdown li {
+	list-style: none;
+	margin: 3px 0;
+}
+.second-category-dropdown li a {
+	color: white;
+	text-decoration: none;
+	display: block;
+	border-radius: 5px;
+	padding: 3px 5px;	
 }
