@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="css/style.css" rel="stylesheet">
 <script src="https://use.typekit.net/ulv2nrf.js"></script>
-<script>try{Typekit.load({async: true});} finally {}</script>
+<script>try{Typekit.load({async: true});} catch(e) {}</script>
 </head>   
 <body ng-app="myApp" ng-controller="myCtrl">
 	<div id="cover"></div>
@@ -32,7 +32,7 @@
 	<div id="news">
 		<div class="header">
 			<span>News Developments</span>
-			<button class="btn btn-default btn-news">+ News Subjects</button>
+			<button class="btn btn-default btn-news"><span>+ News Subjects</span></button>
 			<div class="dropdown-news">
 				<div class="checkbox">
 					<label><input type="checkbox"> Select All</label>
