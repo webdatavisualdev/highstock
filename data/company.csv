@@ -1,0 +1,24 @@
+company,ticker,isin,related,type
+Hewlett-Packard Company (HP),NYSE:HPQ,US40434L1052,10%,type1
+Dell Inc. ->  Denali Holding Inc.,NYSE:DVMT,US24703L1035,15%,type1
+Lenovo Group Limited,OTCBB:LNVGY,HK0992009065,13%,type1
+Hon Hai -> Foxconn Technology Group,TSEC:2317,TW0002317005,4%,type1
+"Inspur Electronic Information Industry Co., Ltd.",SZSE:000977,CNE0000012M2,1%,type1
+WPG Holdings Limited,TSEC:3702,TW0003702007,5%,type1
+Shinko Electric Industries,TSE:6967,JP3375800004,34.0%,type2
+"Formfactors, Inc",NasdaqGS:FORM,US3463751087,33.8%,type2
+"Engility Holdings, Inc",NYSE:EGL,US29286C1071,27.1%,type2
+"KMG Chemicals, Inc. ",NYSE:KMG,US4825641016,26.0%,type2
+"Ibiden Co., Ltd. ",TSE:4062,JP3148800000,20.9%,type2
+KLA-Tencor Corporatio,NasdaqGS:KLAC,US4824801009,18.0%,type2
+Nanometrics Incorporation,NasdaqGS:NANO,US6300771051,18.0%,type2
+"Axcelis Technologies, Inc",NasdaqGS:ACLS,US0545402085,16.0%,type2
+"UDR, Inc.",NYSE:UDR,US9026531049,,other
+Urban Edge Properties,NYSE:UE,US91704F1049,,other
+"Unifi, Inc.",NYSE:UFI,US9046772003,,other
+Domtar Corporation,NYSE:UFS,US2575592033,,other
+UGI Corporation,NYSE:UGI,US9026811052,,other
+"Universal Health Services, Inc.",NYSE:UHS,US9139031002,,other
+Universal Health Realty Income Trust,NYSE:UHT,US91359E1055,,other
+Unisys Corporation,NYSE:UIS,US9092143067,,other
+"UMH Properties, Inc.",NYSE:UMH,US9030021037,,other

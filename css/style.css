@@ -1,3 +1,7 @@
+html, body {
+	width: 100%;
+	height: 100%;
+}
 .form-inline {
 	position: absolute; 
 	left: 15px;
@@ -9,6 +13,27 @@
 }
 .form-inline input {
 	height: 25px;
+}
+.dropdown-menu {
+	left: 85px;
+	width: 700px;
+	padding: 5px;
+	z-index: 2;
+}
+.tab-content {
+	margin-top: 50px;
+}
+.table {
+	margin-bottom: 0;
+}
+#cover {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	z-index: 1;
 }
 #container{
 	position: absolute;
@@ -69,4 +94,36 @@
 }
 #news .content .eachContent .right .rightText{
 	color: #00f;
+}
+.dropdown-news {
+	display: none;
+	background: #2e3035;
+	width: 300px;
+	padding: 5px 15px;
+	z-index: 1;
+	position: relative;
+	top: 5px;
+}
+
+.dropdown-news .categories {
+	padding-left: 0;
+}
+
+.dropdown-news li {
+	list-style: none;
+	padding: 2px 5px;
+	margin: 3px 0;
+}
+
+.dropdown-news li a {
+	color: white;
+	text-decoration: none;
+}
+
+.dropdown-news li:nth-child(even) {
+	background: #5b9bd5;
+}
+
+.dropdown-news li:nth-child(odd) {
+	background: #bfbfbf;
 }

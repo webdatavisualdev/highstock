@@ -1,0 +1,127 @@
+ djn-subject code,name,category,default
+N/PAG,Front Page Stories,Must See,Y
+N/HOT,Hot News,Must See,Y
+N/SNEW,Breaking News,Must See,Y
+N/FRT,Newspapers' Section Fronts,Must See,Y
+N/DDY,Dow Jones Top Stories,Must See,Y
+N/MWJ,Market Moving News from The Wall Street Journal,Must See,Y
+N/TNW,Top Wire News of that day,Must See,Y
+N/DJS,Dow Jones Proprietary Stories,Exclusive,N
+N/CEO,Exclusive Interviews with Corporate Executives,Exclusive,N
+N/LAB,Labor Issues,Risks,N
+N/MNT,Management Issues,Risks,N
+N/LWS,Lawsuits,Risks,N
+N/TST,Antitrust News,Risks,N
+N/LYO,Layoffs,Risks,N
+N/RCN,Corporate Restructurings,Risks,N
+N/CSU,Consumer Issues,Risks,N
+N/STR,Stock Trading Disruptions,Risks,N
+N/BCY,Bankruptcy-Related Filings,Risks,N
+N/TER,Terrorism,Risks,N
+N/CAS,Class Action/Settlement,Risks,N
+N/EOT,Executives on Trial,Risks,N
+N/LEN,Law Enforcement,Risks,N
+N/TNM,"Acquisitions, Mergers, Takeovers",M&A,N
+N/DVT,Divestitures or Asset Sales,M&A,N
+N/JVN,Joint Ventures,M&A,N
+N/PVT,Private Placements,M&A,N
+N/SPN,Spinoffs,M&A,N
+N/ERN,Earnings,Company News,N
+N/CNW,Company Specific,Company News,N
+N/CNF,Conferences,Company News,N
+N/CNT,Contests & Awards,Company News,N
+N/CHG,Corporate Changes,Company News,N
+N/CTA,Corporate Taxation,Company News,N
+N/DTA,Data,Company News,N
+N/DIV,Dividend News,Company News,N
+N/FNC,Financing Agreements,Company News,N
+N/GEN,General News,Company News,N
+N/MSH,Market Share,Company News,N
+N/MRK,Marketing,Company News,N
+N/PDT,New Products & Services,Company News,N
+N/PAT,Patents,Company News,N
+N/PRL,Press Releases on Newswires,Company News,N
+N/PRC,Pricing of Products & Services,Company News,N
+N/PDS,Product Distribution,Company News,N
+N/RND,Research & Development,Company News,N
+N/SLS,Sales Figures,Company News,N
+N/TAX,Taxes,Company News,N
+N/CAC,Corporate Actions,Corporate Actions,N
+N/BBK,Buybacks,Corporate Actions,N
+N/SPL,Stock Splits,Corporate Actions,N
+N/ERP,Earnings Projections by Companies or Analysts,Analysts,N
+N/ANL,Analysts' Comments & Ratings of Stocks,Analysts,N
+N/ARG,Analysts' Ratings,Analysts,N
+N/FTH,Ratings by Fitch Ratings Inc.,Analysts,N
+N/SDP,Ratings by Standard & Poor's Corp.,Analysts,N
+N/MCOX,Ratings by Moody's Corp.,Analysts,N
+N/ISB,Insider Stock Buys,People,N
+N/PER,Personnel Appointments,People,N
+N/COF,Corporate Officers,People,N
+N/BRD,Boards of Directors,People,N
+N/COMP,Executive Compensation & Pay Disclosure,People,N
+N/BIO,Biography,People,N
+N/GMG,Middle Management,People,N
+N/DID,Director Dealings,People,N
+N/CTC,"Contracts, Nongovernment",Business Contracts,N
+N/LIC,Licensing Agreements,Business Contracts,N
+N/PCA,Partnerships/Contracts/Business Alliances,Business Contracts,N
+N/GVC,"Contracts, Government (not defense)",Business Contracts,N
+N/DFC,"Contracts, Defense",Business Contracts,N
+N/HIY,High-Yield Issuers,Debt,N
+N/BON,Bond News,Debt,N
+N/COB,Corporate Bonds,Debt,N
+N/RTG,Bond Ratings & Comments,Debt,N
+N/BPR,Bond Pricings,Debt,N
+N/EWR,Economic Report,Market News,N
+N/STK,Stock Market News,Market News,N
+N/EMR,Emerging Markets Report,Market News,N
+N/ALMT,All Market Talk,Market News,N
+N/DJMT,Dow Jones Market Talk,Market News,N
+N/MKT,Market News,Market News,N
+N/SMC,Stock Market Commentary,Market News,N
+N/IOV,Industry Overview,Market News,N
+N/HRD,Heard on the Street,Market News,N
+N/NYS,New York Stock Market Commentary,Market News,N
+N/NYH,Hot Stocks,Market News,N
+N/EDC,Editorials & Columns,Market News,N
+N/NDQ,NASDAQ Stock Commentary,Market News,N
+N/SUM,News Summaries,Market News,N
+N/LAL,Latest Analysis,Market News,N
+N/POV,Point of View,Market News,N
+N/HOH,News Highlights,Market News,N
+N/WLS,Stories from WSJ.com,Hand-picked Publishers,N
+N/BLOG,Content Sourced from Blogs,Hand-picked Publishers,N
+N/NJR,Nikkei Japan Report,Hand-picked Publishers,N
+N/BRN,Barron's on Newswires,Hand-picked Publishers,N
+N/JIE,Stories from WSJ.com,Hand-picked Publishers,N
+N/WAA,Stories from WSJ.com,Hand-picked Publishers,N
+N/MKWH,MarketWatch Stories on Newswires,Hand-picked Publishers,N
+N/AWJ,Stories from WSJ.com,Hand-picked Publishers,N
+N/WAE,Stories from WSJ.com,Hand-picked Publishers,N
+N/PEC,Private Companies,Others,N
+N/NET,Internet,Others,N
+N/TAB,Tabular Material,Others,N
+N/PLT,Politics,Others,N
+N/PBP,Public-Policy & Regulatory Issues,Others,N
+N/VCF,Venture Capital Financing,Others,N
+N/SHC,Share Capital,Others,N
+N/ELX,"Elections, U.S.",Others,N
+N/TRD,Trade Issues,Others,N
+N/ENV,Environmental News,Others,N
+N/ITP,Information Technology Policy & Issues,Others,N
+N/COGV,Corporate Governance,Others,N
+N/AGN,Government Agency Securities,Others,N
+N/CMY,"Charities, Community & Civic Groups",Others,N
+N/RGU,Securities Regulations,Others,N
+N/TRR,Stock Trading Resumptions,Others,N
+N/FF,DJ Corporate Filings Alert,Regulartory Filings,N
+N/144,Form 144 Filings,Regulartory Filings,N
+N/8K,Significant Corporate Events (SEC Form 8-K),Regulartory Filings,N
+N/13F,Equity Portfolios of $100 Million (13-F),Regulartory Filings,N
+N/REG,Bond & Stock Registrations,Regulartory Filings,N
+N/INI,Initial Public Offerings,Regulartory Filings,N
+N/13FM,13F Money Managers Filings,Regulartory Filings,N
+N/OWN,Stock Ownership,Regulartory Filings,N
+N/ORI,All Original Filings,Regulartory Filings,N
+N/MTG,Annual Meetings,Regulartory Filings,N

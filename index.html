@@ -5,21 +5,17 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="css/style.css" rel="stylesheet">
 <body>
+	<div id="cover"></div>
 	<form class="form-inline dropdown">
 		<div class="form-group">
 			<label><i class="fa fa-bar-chart"></i>Compare:</label>
-			<input type="text" class="form-control dropdown-toggle" placeholder="Search customer company name/ticker" data-toggle="dropdown">
+			<input type="text" class="form-control" placeholder="Search customer company name/ticker">
 			<ul class="nav nav-tabs dropdown-menu">
-				<li class="active"><a data-toggle="tab" href="#type1">Type1</a></li>
-				<li><a data-toggle="tab" href="#type2">Type2</a></li>
-				<li><a href="#"><i class="fa fa-search"></i></a></li>
+				<li class="active"><a data-toggle="tab" id="type1">Type1</a></li>
+				<li><a data-toggle="tab" id="type2">Type2</a></li>
+				<li><a data-toggle="tab" id="other"><i class="fa fa-search"></i></a></li>
 				<div class="tab-content">
-					<div id="type1" class="tab-pane fade in active">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-					<div id="type2" class="tab-pane fade">
-						<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-					</div>
+					<table class="table"></table>
 				</div>			
 			</ul>
 		</div>
@@ -28,7 +24,11 @@
 	<div id="news">
 		<div class="header">
 			<span>News Developments</span>
-			<button class="btn btn-default">+ News Subjects</button>
+			<button class="btn btn-default btn-news">+ News Subjects</button>
+			<div class="dropdown-news">
+				<input type="checkbox">
+				<ul class="categories"></ul>
+			</div>
 		</div>
 		<div class="content">
 		</div>
@@ -64,6 +64,11 @@
 <script src="js/d3.v4.js"></script>
 <script src="js/script.js"></script>
 <script>
+	var companyData;
+	var currentType;
+	var categories = [];
+	var newsSections;
+
 	$(document).ready(function(){
 		var chartData3;
 		//makeGrouping();
@@ -78,6 +83,19 @@
 	            var startInd = getIndex(1, "month", "1m", 0, chartData3);
 	            displayNews(startInd, newsData.length-1, -1);
 			});
+		});
+		d3.csv("data/company.csv", function(data) {
+			companyData = data;
+			addTableBody("type1");
+		});
+		d3.csv("data/news-category.csv", function(data) {
+			newsSections = data;
+			data.map(function(d) {
+				if(categories.indexOf(d.category) < 0) {
+					categories.push(d.category);
+				}
+			});
+			addCategories();
 		});
 
 		$('body').on('click', function(e) {
@@ -153,14 +171,72 @@
             }
 		});
 
+		$(".form-control").on("click", function() {
+			$(".nav-tabs").show();
+			$("#cover").show();
+		});
+
 		$(".nav-tabs li").on("click", function() {
-			console.log(this.className);
 			$(".nav-tabs li").removeClass("active");
 			$(this).addClass("active");
 			$(".dropdown-menu").css({display: "block"});
 		});
 
-		$(".nav-tabs li").not().on("click", function() {
+		$("#cover").on("click", function() {
+			$(".nav-tabs").hide();
+			$("#cover").hide();
+		});
+
+		$("#type1").on("click", function() {
+			addTableBody("type1");
+		});
+
+		$("#type2").on("click", function() {
+			addTableBody("type2");
+		});
+
+		$("#other").on("click", function() {
+			addTableBody("other");
+		});
+
+		$(".btn-news").on("click", function() {
+			$(".dropdown-news").show();
 		});
 	});
+
+	function addTableBody(type) {
+		var table = $(".tab-content table");
+		var th = "<tr><th>Company Name</th><th>Ticker</th><th>ISIN</th><th>Related Rate</th></tr>";
+		table.html("");
+		table.append(th);
+		currentType = type;
+		var index = 1;
+		companyData.map(function(d) {
+			if(d.type == type) {
+				tr = "<tr onClick='selectCompany("+index+")'><td>"+d.company+"</td><td>"+d.ticker+"</td><td>"+d.isin+"</td><td>"+d.related+"</td></tr>";
+				table.append(tr);
+				index ++;
+			}
+		});
+	}
+
+	function addCategories() {
+		var section = $(".dropdown-news .categories");
+		categories.map(function(c) {
+			var li = "<li style='background-size:"+100+"px'><a>"+c+"</a><div class='category-name'></div><a class='btn-edit-category'></a></li>";
+			section.append(li);
+		});
+	}
+
+	function selectCompany(index) {
+		var i = 1;
+		companyData.map(function(data) {
+			if(data.type == currentType) {
+				if(i == index) {
+					$(".form-control").val(data.company);
+				}
+				i ++;
+			}
+		});
+	}
 </script>
