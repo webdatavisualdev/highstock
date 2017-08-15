@@ -6,8 +6,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="css/style.css" rel="stylesheet">
-<script src="https://use.typekit.net/ulv2nrf.js"></script>
-<script>try{Typekit.load({async: true});} catch(e) {}</script>
+<!-- <script src="https://use.typekit.net/gti7qvg.js"></script> -->
+<!-- <script>try{Typekit.load({ async: true });}catch(e){}</script> -->
+<script src="https://use.typekit.net/ulv2nrf.js"></script> 
+<script>try{Typekit.load({async: true});} catch(e) {}</script> 
 </head>   
 <body ng-app="myApp" ng-controller="myCtrl">
 	<div id="cover"></div>
@@ -135,6 +137,10 @@ app.controller('myCtrl', function($scope) {
 			console.log(data);
 			$scope.$apply();
 		});
+		setTimeout(function(){
+			d3.select("svg").attr("fill", "white");
+			d3.selectAll(".highcharts-grid path").attr("stroke", "#aaa");
+		}, 1000);
 
 		$('body').on('click', function(e) {
 			var obj = $(e.target);

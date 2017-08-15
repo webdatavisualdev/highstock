@@ -1935,7 +1935,7 @@ SVGElement.prototype = {
 			}
 
 			// Set the reference to the gradient object
-			elem.setAttribute(prop, 'url(' + renderer.url + '#' + id + ')');
+			// elem.setAttribute(prop, 'url(' + renderer.url + '#' + id + ')');
 		} 
 	},
 

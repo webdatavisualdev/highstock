@@ -9,7 +9,7 @@ html, body {
 	z-index: 1;
 }
 .form-inline label {
-	color: white;
+	color: grey;
 	font-family: "Myriad Pro Semi Condensed";
 }
 .form-inline label img {
@@ -56,7 +56,8 @@ html, body {
 #news .header {
 	height: 40px;
 	padding: 10px 20px 0;
-	color: white;
+	color: black;
+	background-color: white;
 }
 #news .header span {
 	font-size: 16px;
@@ -71,7 +72,7 @@ html, body {
 	font-family: "Myriad Pro Light";
 }
 #news .content {
-	background: white;
+	background: #2e3035;
 	height: 100%;
 	padding: 10px;
 }
@@ -93,6 +94,7 @@ html, body {
   	float:left;
   	padding: 3px;
 	cursor: pointer;
+	color: white;
 }
 #news .content .eachContent .right{
 	font-size: 9px;
@@ -102,7 +104,7 @@ html, body {
 	font-family: "Myriad Pro Light Condensed";
 }
 #news .content .eachContent .right .rightText{
-	color: #00f;
+	color: #ccc;
 }
 .dropdown-news {
 	display: none;
