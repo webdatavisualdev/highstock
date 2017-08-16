@@ -138,8 +138,10 @@ app.controller('myCtrl', function($scope) {
 			$scope.$apply();
 		});
 		setTimeout(function(){
-			d3.select("svg").attr("fill", "white");
-			d3.selectAll(".highcharts-grid path").attr("stroke", "#aaa");
+			// d3.select("svg").attr("fill", "white");
+			// d3.selectAll(".highcharts-grid path").attr("stroke", "#aaa");
+			// d3.selectAll(".highcharts-axis-labels.highcharts-yaxis-labels text").attr("fill", "#888");
+			// d3.selectAll(".highcharts-axis-labels.highcharts-yaxis-labels text").attr("color", "#888");
 		}, 1000);
 
 		$('body').on('click', function(e) {

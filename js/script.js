@@ -484,7 +484,7 @@ var seriesData = [{
             lineWidth: 0.2,
             gridLineWidth: 1,
             gridLineDashStyle: 'shortdash',
-            gridLineColor: 'rgba(230, 230, 230, 0.2)',
+            gridLineColor: '#aaa',
 
 
             labels: {
@@ -503,16 +503,16 @@ var seriesData = [{
                 //gridLineColor: 'transparent',
                 lineWidth: 0.2,
                 lineWidth: 0.5,
-                lineColor: 'rgba(230, 230, 230, 0.1)',
+                lineColor: '#aaa',
                 gridLineDashStyle: 'shortdash',
-                gridLineColor: 'rgba(230, 230, 230, 0.2)',
+                gridLineColor: '#aaa',
 
                 labels: {
                     align: 'right',
                     x: -3,
 
                     style: {
-                        color: 'rgb(255, 255, 255)',
+                        color: '#7a8498',
                         fontSize: '12px',
                     },
 
@@ -521,7 +521,7 @@ var seriesData = [{
                     text: 'Stock Price',
 
                     style: {
-                        color: 'rgb(255, 255, 255)',
+                        color: '#7a8498',
                         fontSize: '12px',
                     },
 
@@ -541,7 +541,7 @@ var seriesData = [{
                     x: -3,
 
                     style: {
-                        color: 'rgb(255, 255, 255)',
+                        color: '#7a8498',
                         fontSize: '12px',
                     },
                 },
@@ -549,7 +549,7 @@ var seriesData = [{
                     text: 'Volume (mm)',
 
                     style: {
-                        color: 'rgb(255, 255, 255)',
+                        color: '#7a8498',
                         fontSize: '12px',
                     },
 
@@ -565,17 +565,17 @@ var seriesData = [{
                 //gridLineColor: 'transparent',
                 opposite: false,
                 lineWidth: 0.5,
-                lineColor: 'rgba(230, 230, 230, 0.1)',
+                lineColor: '#aaa',
                 gridLineWidth: 1,
                 gridLineDashStyle: 'shortdash',
-                gridLineColor: 'rgba(230, 230, 230, 0.2)',
+                gridLineColor: '#aaa',
 
                 labels: {
                     align: 'right',
                     x: -3,
 
                     style: {
-                        color: 'rgb(255, 255, 255)',
+                        color: '#7a8498',
                         fontSize: '12px',
                     },
                     format: '{value:.1f}'
@@ -587,7 +587,7 @@ var seriesData = [{
                     text: 'Sentiment',
 
                     style: {
-                        color: 'rgb(255, 255, 255)',
+                        color: '#7a8498',
                         fontSize: '12px',
                     },
                     valueDecimals: 2

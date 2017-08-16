@@ -11908,7 +11908,8 @@ Chart.prototype = {
 				textAlign: 'left',
 				lineHeight: 'normal', // #427
 				zIndex: 0, // #1072
-				'-webkit-tap-highlight-color': 'rgba(0,0,0,0)'
+				fill: '#fff'
+				// '-webkit-tap-highlight-color': 'rgba(0,0,0,0)'
 			}, optionsChart.style),
 			chart.renderToClone || renderTo
 		);
@@ -13932,6 +13933,7 @@ Series.prototype = {
 		if (seriesMarkerOptions.enabled !== false || series._hasPointMarkers) {
 
 			i = points.length;
+			console.log(points);
 			while (i--) {
 				point = points[i];
 				plotX = mathFloor(point.plotX); // #1843
@@ -20325,7 +20327,7 @@ defaultPlotOptions.candlestick = merge(defaultPlotOptions.column, {
 	},
 	tooltip: defaultPlotOptions.ohlc.tooltip,
 	threshold: null,
-	upColor: 'white'
+	// upColor: 'white'
 	// upLineColor: null
 });
 
@@ -20470,7 +20472,7 @@ var symbols = SVGRenderer.prototype.symbols;
 
 // 1 - set default options
 defaultPlotOptions.flags = merge(defaultPlotOptions.column, {
-	fillColor: 'white',
+	// fillColor: 'white',
 	lineWidth: 1,
 	pointRange: 0, // #673
 	//radius: 2,
@@ -20635,6 +20637,7 @@ seriesTypes.flags = extendClass(seriesTypes.column, {
 			outsideRight;
 
 		i = points.length;
+		var plotXArray = [];
 		while (i--) {
 			point = points[i];
 			outsideRight = point.plotX > series.xAxis.len;
@@ -20651,7 +20654,9 @@ seriesTypes.flags = extendClass(seriesTypes.column, {
 			graphic = point.graphic;
 
 			// only draw the point if y is defined and the flag is within the visible area
-			if (plotY !== UNDEFINED && plotX >= 0 && !outsideRight) {
+			if (plotY !== UNDEFINED && plotX >= 0 && !outsideRight && plotXArray.indexOf(plotX) < 0) {
+				plotXArray.push(plotX);
+				console.log(point);
 				// shortcuts
 				pointAttr = point.pointAttr[point.selected ? 'select' : ''] || seriesPointAttr;
 				if (graphic) { // update
@@ -20864,7 +20869,7 @@ extend(defaultOptions, {
 		xAxis: {
 			tickWidth: 0,
 			lineWidth: 0,
-			gridLineColor: '#EEE',
+			gridLineColor: '#aaa',
 			gridLineWidth: 1,
 			tickPixelInterval: 200,
 			labels: {
@@ -23137,7 +23142,7 @@ wrap(Axis.prototype, 'drawCrosshair', function (proceed, e, point) {
 			'stroke-width': options.borderWidth || 0
 		})
 		.css(extend({				
-			color: 'white',
+			// color: 'white',
 			fontWeight: 'normal',
 			fontSize: '11px',
 			textAlign: 'center'
