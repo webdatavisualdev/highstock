@@ -20636,9 +20636,10 @@ seriesTypes.flags = extendClass(seriesTypes.column, {
 			anchorY,
 			outsideRight;
 
-		i = points.length;
 		var plotXArray = [];
-		while (i--) {
+		var lastPoint = {};
+		var numText = 0;
+		for(var i = 0 ; i < points.length ; i ++) {
 			point = points[i];
 			outsideRight = point.plotX > series.xAxis.len;
 			plotX = point.plotX - pick(point.lineWidth, options.lineWidth) % 2; // #4285
@@ -20652,11 +20653,25 @@ seriesTypes.flags = extendClass(seriesTypes.column, {
 			anchorY = stackIndex ? UNDEFINED : point.plotY;
 
 			graphic = point.graphic;
-
+			
+			if(plotXArray.indexOf(plotX) >= 0 && plotY !== UNDEFINED && plotX >= 0 && !outsideRight && numText <= 5) {
+				lastPoint.text += "<br>- " + point.text;
+				numText ++;
+				if (numText > 5) {
+					lastPoint.text += "<br>...";
+				}
+			}
 			// only draw the point if y is defined and the flag is within the visible area
 			if (plotY !== UNDEFINED && plotX >= 0 && !outsideRight && plotXArray.indexOf(plotX) < 0) {
 				plotXArray.push(plotX);
-				console.log(point);
+				numText = 0;
+				lastPoint = point;
+
+				if(point.text.substring(0, 1) != "-") {
+					lastPoint.text = "- " + point.text;
+				}
+
+				console.log(point.text.substring(0, 1));
 				// shortcuts
 				pointAttr = point.pointAttr[point.selected ? 'select' : ''] || seriesPointAttr;
 				if (graphic) { // update
