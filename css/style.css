@@ -24,9 +24,8 @@ html, body {
 	width: 700px;
 	padding: 5px;
 	z-index: 2;
-}
-.tab-content {
-	margin-top: 50px;
+	height: 310px;
+	overflow-y: scroll;
 }
 .table {
 	margin-bottom: 0;
@@ -103,12 +102,12 @@ html, body {
 	width: 80%;
 	font-family: "Myriad Pro Light Condensed";
 }
-#news .content .eachContent .right .rightText{
-	color: #ccc;
+#news .content .eachContent .right{
+	color: #ddd;
 }
 .dropdown-news {
 	display: none;
-	background: #2e3035;
+	background: #f5f5f5;
 	width: 300px;
 	padding: 5px 15px;
 	z-index: 1;
@@ -132,6 +131,8 @@ html, body {
 .dropdown-news li a span {
 	display: block;
 	width: 220px;
+	color: #333;
+	font-family: "Myriad Pro Light";
 }
 li .category-name {
 	background: #bfbfbf;
@@ -156,6 +157,7 @@ li.selected .category-name {
 }
 .second-category-dropdown .col-xs-6:first-child {
 	padding: 10px 25px;
+	color: #5b9bd5;
 }
 .second-category-dropdown ul {
 	padding-left: 10px;
@@ -166,9 +168,21 @@ li.selected .category-name {
 	margin: 3px 0;
 }
 .second-category-dropdown li a {
-	color: white;
+	color: #333;
 	text-decoration: none;
 	display: block;
 	border-radius: 5px;
 	padding: 3px 5px;	
+	font-family: "Myriad Pro Light";
+}
+.nav-tabs li a {
+	font-family: "Myriad Pro Semi Condensed";
+}
+.nav-tabs li.active a, .nav-tabs li a:hover, .nav-tabs li.active a:hover {
+	color: #00b2ff;
+	border-color: #00b2ff;
+	border-bottom-width: 5px;
+}
+.tab-content th {
+	background-color: #eeeef5;
 }

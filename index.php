@@ -40,7 +40,10 @@
 					<label><input type="checkbox"> Select All</label>
 				</div>
 				<ul class="categories">
-					<li ng-repeat="d in categories track by $index" ng-class="getCategoryClass(d)"><a style='width:100px' class='category-name'><span ng-click="clickCategoryItem(d)">{{d.name}}</span></a><img src='images/edit.png' ng-click="showSecondCategories(d.name)"></li>
+					<li ng-repeat="d in categories track by $index" ng-class="getCategoryClass(d)" ng-click="changeIconStatus($index)">
+						<a style='width:100px' class='category-name'><span ng-click="clickCategoryItem(d)">{{d.name}}</span></a>
+						<img src='images/edit.png' ng-click="showSecondCategories(d.name)" ng-show="showIcon[$index]">
+					</li>
 				</ul>
 			</div>
 			<div class="second-category-dropdown">
@@ -102,6 +105,7 @@ app.controller('myCtrl', function($scope) {
 	$scope.categories = [];
 	$scope.newsSections;
 	$scope.secondCategories = [];
+	$scope.showIcon = [];
 
 	$(document).ready(function(){
 		var chartData3;
@@ -134,15 +138,11 @@ app.controller('myCtrl', function($scope) {
 					selected = "N";
 				}
 			});
-			console.log(data);
+			for(var i = 0 ; i < $scope.categories.length ; i ++) {
+				$scope.showIcon[i] = false;
+			}
 			$scope.$apply();
 		});
-		setTimeout(function(){
-			// d3.select("svg").attr("fill", "white");
-			// d3.selectAll(".highcharts-grid path").attr("stroke", "#aaa");
-			// d3.selectAll(".highcharts-axis-labels.highcharts-yaxis-labels text").attr("fill", "#888");
-			// d3.selectAll(".highcharts-axis-labels.highcharts-yaxis-labels text").attr("color", "#888");
-		}, 1000);
 
 		$('body').on('click', function(e) {
 			var obj = $(e.target);
@@ -287,6 +287,7 @@ app.controller('myCtrl', function($scope) {
 		});
 		console.log($scope.secondCategories);
 		$(".second-category-dropdown").show();
+		$("#cover").show();
 	}
 
 	$scope.clickItem = function(name) {
@@ -351,6 +352,13 @@ app.controller('myCtrl', function($scope) {
 
 	$scope.closeSecondDropdown = function() {
 		$(".second-category-dropdown").hide();
+	}
+
+	$scope.changeIconStatus = function(index) {
+		for(var i = 0 ; i < $scope.showIcon.length ; i ++) {
+			$scope.showIcon[i] = false;
+		}
+		$scope.showIcon[index] = $scope.showIcon[index] == false ? true : false;
 	}
 });
 </script>

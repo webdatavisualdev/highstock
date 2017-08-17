@@ -1290,7 +1290,7 @@ defaultOptions = {
 		//inverted: false,
 		//shadow: false,
 		spacing: [10, 10, 15, 10],
-		//spacingTop: 10,
+		spacingTop: 10,
 		//spacingRight: 10,
 		//spacingBottom: 15,
 		//spacingLeft: 10,
@@ -1453,7 +1453,7 @@ defaultOptions = {
 		enabled: true,
 		align: 'center',
 		//floating: false,
-		layout: 'horizontal',
+		layout: 'vertical',
 		labelFormatter: function () {
 			return this.name;
 		},
@@ -10556,8 +10556,10 @@ Legend.prototype = {
 			legendItemPos = item._legendItemPos,
 			itemX = legendItemPos[0],
 			itemY = legendItemPos[1],
+			// itemY = 0,
 			checkbox = item.checkbox,
 			legendGroup = item.legendGroup;
+			console.log(item);
 
 		if (legendGroup && legendGroup.element) {
 			legendGroup.translate(
@@ -10674,6 +10676,7 @@ Legend.prototype = {
 	 * @param {Object} item A series or point
 	 */
 	renderItem: function (item) {
+		console.log(item);
 		var legend = this,
 			chart = legend.chart,
 			renderer = chart.renderer,
@@ -10757,19 +10760,19 @@ Legend.prototype = {
 		legend.itemHeight = itemHeight = mathRound(item.legendItemHeight || bBox.height);
 
 		// if the item exceeds the width, start a new line
-		if (horizontal && legend.itemX - initialItemX + itemWidth >
-				(widthOption || (chart.chartWidth - 2 * padding - initialItemX - options.x))) {
-			legend.itemX = initialItemX;
-			legend.itemY += itemMarginTop + legend.lastLineHeight + itemMarginBottom;
-			legend.lastLineHeight = 0; // reset for next line (#915, #3976)
-		}
+		// if (horizontal && legend.itemX - initialItemX + itemWidth >
+		// 		(widthOption || (chart.chartWidth - 2 * padding - initialItemX - options.x))) {
+		// 	legend.itemX = initialItemX;
+		// 	legend.itemY += itemMarginTop + legend.lastLineHeight + itemMarginBottom;
+		// 	legend.lastLineHeight = 0; // reset for next line (#915, #3976)
+		// }
 
 		// If the item exceeds the height, start a new column
-		/*if (!horizontal && legend.itemY + options.y + itemHeight > chart.chartHeight - spacingTop - spacingBottom) {
-			legend.itemY = legend.initialItemY;
-			legend.itemX += legend.maxItemWidth;
-			legend.maxItemWidth = 0;
-		}*/
+		// if (!horizontal && legend.itemY + options.y + itemHeight > chart.chartHeight - spacingTop - spacingBottom) {
+		// 	legend.itemY = legend.initialItemY;
+		// 	legend.itemX += legend.maxItemWidth;
+		// 	legend.maxItemWidth = 0;
+		// }
 
 		// Set the edge positions
 		legend.maxItemWidth = mathMax(legend.maxItemWidth, itemWidth);
