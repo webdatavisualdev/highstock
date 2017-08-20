@@ -42,7 +42,7 @@
 				<ul class="categories">
 					<li ng-repeat="d in categories track by $index" ng-class="getCategoryClass(d)" ng-click="changeIconStatus($index)">
 						<a style='width:100px' class='category-name'><span ng-click="clickCategoryItem(d)">{{d.name}}</span></a>
-						<img src='images/edit.png' ng-click="showSecondCategories(d.name)" ng-show="showIcon[$index]">
+						<img src='images/edit.png' ng-click="showSecondCategories(d.name, $event)" ng-show="showIcon[$index]">
 					</li>
 				</ul>
 			</div>
@@ -63,8 +63,12 @@
 				</ul>
 			</div>
 		</div>
-		<div class="content">
+		<div class="selected-sections"></div>
+		<div class="filter-checkbox">
+			<label><input type="checkbox"> PRIMARY</label>
+			<label><input type="checkbox"> SIGNIFICANT NEWS</label>
 		</div>
+		<div class="content"></div>
 	</div>
 	<div id="myModal" class="modal fade">
 	    <div class="modal-dialog">
@@ -277,7 +281,7 @@ app.controller('myCtrl', function($scope) {
 		});
 	}
 
-	$scope.showSecondCategories = function(category) {
+	$scope.showSecondCategories = function(category, event) {
 		$scope.secondCategories = [];
 		$scope.category = category;
 		$scope.newsSections.map(function(d) {
@@ -285,8 +289,8 @@ app.controller('myCtrl', function($scope) {
 				$scope.secondCategories.push(d.name);
 			}
 		});
-		console.log($scope.secondCategories);
 		$(".second-category-dropdown").show();
+		$(".second-category-dropdown").css("top", $(event)[0].screenY - 80);
 		$("#cover").show();
 	}
 

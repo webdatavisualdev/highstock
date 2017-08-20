@@ -54,26 +54,28 @@ html, body {
 }
 #news .header {
 	height: 40px;
-	padding: 10px 20px 0;
+	padding: 10px 5px 0;
 	color: black;
 	background-color: white;
 }
-#news .header span {
+#news .header>span {
+	color: #337ab7;
 	font-size: 16px;
 	font-family: "Myriad Pro Semi Condensed";
 }
 #news .header .btn-default {
-	float: right;
 	height: 25px;
-	line-height: 0
+	line-height: 0;
+	margin-left: 5px;
 }
 #news .header .btn-default span {
 	font-family: "Myriad Pro Light";
+	font-size: 13px;
 }
 #news .content {
 	background: #2e3035;
 	height: 100%;
-	padding: 10px;
+	padding: 0 10px;
 }
 #news .content .eachContent{
 	margin-top: 5px;
@@ -96,7 +98,7 @@ html, body {
 	color: white;
 }
 #news .content .eachContent .right{
-	font-size: 9px;
+	font-size: 12px;
 	float: left;
 	margin-left: 5%;
 	width: 80%;
@@ -105,14 +107,23 @@ html, body {
 #news .content .eachContent .right{
 	color: #ddd;
 }
+.filter-checkbox label {
+	color: #eee;
+	font-size: 11px;
+	font-weight: 200;
+	margin-left: 20px;
+	margin-top: 10px;
+}
 .dropdown-news {
 	display: none;
 	background: #f5f5f5;
-	width: 300px;
+	width: 280px;
 	padding: 5px 15px;
 	z-index: 1;
 	position: relative;
-	top: 5px;
+	top: 2px;
+	left: 140px;
+	border: 1px solid #333;
 }
 .dropdown-news .categories {
 	padding-left: 0;
@@ -148,12 +159,11 @@ li.selected .category-name {
 	display: none;
 	position: absolute;
 	z-index: 2;
-	top: 60px;
-	background: white;
-	width: 250px;
-	left: 25px;
+	background: #f5f5f5;
+	width: 280px;
+	left: 130px;
 	color: black;
-	border-radius: 10px;
+	border: 1px solid #333;
 }
 .second-category-dropdown .col-xs-6:first-child {
 	padding: 10px 25px;
@@ -185,4 +195,7 @@ li.selected .category-name {
 }
 .tab-content th {
 	background-color: #eeeef5;
+}
+.checkbox .fa-close {
+	margin-left: 20px;
 }

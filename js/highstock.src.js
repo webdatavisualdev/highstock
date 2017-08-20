@@ -1250,7 +1250,7 @@ var adapterRun = adapter.adapterRun,
  * Handle the options                                                         *
  *****************************************************************************/
 defaultOptions = {
-	colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', 
+	colors: ['#45733a', '#434348', '#90ed7d', '#f7a35c', 
 		    '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1'],
 	symbols: ['circle', 'diamond', 'square', 'triangle', 'triangle-down'],
 	lang: {
@@ -3393,7 +3393,7 @@ SVGRenderer.prototype = {
 	 * @param {Object} pressedState
 	 */
 	button: function (text, x, y, callback, normalState, hoverState, pressedState, disabledState, shape) {
-		var label = this.label(text, x, y, shape, null, null, null, null, 'button'),
+		var label = this.label(text, x - 20, y, shape, null, null, null, null, 'button'),
 			curState = 0,
 			stateOptions,
 			stateStyle,
@@ -3415,7 +3415,7 @@ SVGRenderer.prototype = {
 				]
 			},
 			r: 2,
-			padding: 5,
+			padding: 10,
 			style: {
 				color: 'black'
 			}
@@ -3425,7 +3425,7 @@ SVGRenderer.prototype = {
 
 		// Hover state
 		hoverState = merge(normalState, {
-			stroke: '#68A',
+			stroke: '#ccc',
 			fill: {
 				linearGradient: verticalGradient,
 				stops: [
@@ -3439,7 +3439,7 @@ SVGRenderer.prototype = {
 
 		// Pressed state
 		pressedState = merge(normalState, {
-			stroke: '#68A',
+			stroke: '#ccc',
 			fill: {
 				linearGradient: verticalGradient,
 				stops: [
@@ -4103,7 +4103,7 @@ SVGRenderer.prototype = {
 			box,
 			bBox,
 			alignFactor = 0,
-			padding = 3,
+			padding = 4,
 			paddingLeft = 0,
 			width,
 			height,
@@ -4178,7 +4178,7 @@ SVGRenderer.prototype = {
 			if (x !== text.x || y !== text.y) {
 				text.attr('x', x);
 				if (y !== UNDEFINED) {
-					text.attr('y', y);
+					text.attr('y', y + 2);
 				}
 			}
 
@@ -22023,7 +22023,7 @@ extend(defaultOptions, {
 	}
 });
 defaultOptions.lang = merge(defaultOptions.lang, {
-	rangeSelectorZoom: 'Zoom',
+	// rangeSelectorZoom: 'Zoom',
 	rangeSelectorFrom: 'From',
 	rangeSelectorTo: 'To'
 });
@@ -22589,7 +22589,7 @@ RangeSelector.prototype = {
 					.add(buttonGroup);
 
 				// increase button position for the next button
-				buttonLeft += buttons[i].width + pick(options.buttonSpacing, 5);
+				buttonLeft += buttons[i].width + pick(options.buttonSpacing, 1);
 
 				if (rangeSelector.selected === i) {
 					buttons[i].setState(2);

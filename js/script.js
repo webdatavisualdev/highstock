@@ -90,7 +90,7 @@ var seriesData = [{
                 type: 'flags',
                 data: chartData[6][i],
                 onSeries: 'dataSeries',
-                shape: 'squarepin',
+                shape: 'circlepin',
                 events: {
                     click: function(event) {
                         var i, index, displayIndex;
@@ -102,6 +102,7 @@ var seriesData = [{
                                     break;
                                 }
                             }
+                            console.log(groupingArryIndex);
                             displayNews(groupingArryIndex[i-1], groupingArryIndex[i], displayIndex);  
                         }
                     }
@@ -158,7 +159,7 @@ var seriesData = [{
                 showInLegend: false,
                 visible: false
             });
-  chart = Highcharts.StockChart({
+    chart = Highcharts.StockChart({
         chart: {
             renderTo: 'container',
             backgroundColor: {
@@ -245,12 +246,12 @@ var seriesData = [{
 
             buttonTheme: { // styles for the buttons
                 fill: 'none',
-                stroke: 'none',
-                'stroke-width': 0,
-                r: 8,
+                stroke: '#ccc',
+                'stroke-width': 1,
+                r: 0,
                 style: {
                     color: '#7a8498',
-                    fontSize: '14px',
+                    fontSize: '11px',
                     //fontWeight: 'bold'
                 },
                 states: {
@@ -265,7 +266,7 @@ var seriesData = [{
                 }
             },
             inputBoxBorderColor: 'gray',
-            inputBoxWidth: 120,
+            inputBoxWidth: 100,
             inputBoxHeight: 18,
             inputStyle: {
                 color: '#7a8498',
@@ -301,7 +302,7 @@ var seriesData = [{
                 },
             },
             flags: {
-                shape :"squarepin",
+                shape :"circlepin",
                 style: {
                     cursor: 'pointer',
                     fontWeight: 'bold',
