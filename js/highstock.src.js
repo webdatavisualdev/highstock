@@ -20476,7 +20476,7 @@ var symbols = SVGRenderer.prototype.symbols;
 // 1 - set default options
 defaultPlotOptions.flags = merge(defaultPlotOptions.column, {
 	// fillColor: 'white',
-	lineWidth: 1,
+	lineWidth: 3,
 	pointRange: 0, // #673
 	//radius: 2,
 	shape: 'flag',
@@ -20484,19 +20484,19 @@ defaultPlotOptions.flags = merge(defaultPlotOptions.column, {
 	states: {
 		hover: {
 			lineColor: 'black',
-			fillColor: '#FCFFC5'
+			fillColor: '#00cc00'
 		}
 	},
 	style: {
 		fontSize: '11px',
 		fontWeight: 'bold',
-		textAlign: 'center'
+		textAlign: 'center',
 	},
 	tooltip: {
 		pointFormat: '{point.text}<br/>'
 	},
 	threshold: null,
-	y: -30
+	y: -40
 });
 
 // 2 - Create the CandlestickSeries object
@@ -20639,9 +20639,37 @@ seriesTypes.flags = extendClass(seriesTypes.column, {
 			anchorY,
 			outsideRight;
 
-		var plotXArray = [];
+		var plotXArray = [],
+			plotXTempArray = [];
 		var lastPoint = {};
-		var numText = 0;
+		var numText = 0,
+			title = 1,
+			plotText = [],
+			titleArray = [];
+
+		for(var i = 0 ; i < points.length ; i ++) {
+			point = points[i];
+			outsideRight = point.plotX > series.xAxis.len;
+			plotX = point.plotX - pick(point.lineWidth, options.lineWidth) % 2; // #4285
+			stackIndex = point.stackIndex;
+			plotY = point.plotY;
+			if (plotY !== UNDEFINED) {
+				plotY = point.plotY + optionsY - (stackIndex !== UNDEFINED && stackIndex * options.stackDistance);
+			}
+
+			if(plotXTempArray.indexOf(plotX) >= 0 && plotY !== UNDEFINED && plotX >= 0 && !outsideRight) {
+				title ++;
+				titleArray[plotXTempArray.length - 1] = title;
+				console.log("first", title)
+			}
+			if (plotY !== UNDEFINED && plotX >= 0 && !outsideRight && plotXTempArray.indexOf(plotX) < 0) {
+				plotXTempArray.push(plotX);
+				titleArray.push(title);
+				title = 1;
+				console.log("second", title);
+			}
+		}
+
 		for(var i = 0 ; i < points.length ; i ++) {
 			point = points[i];
 			outsideRight = point.plotX > series.xAxis.len;
@@ -20674,7 +20702,8 @@ seriesTypes.flags = extendClass(seriesTypes.column, {
 					lastPoint.text = "- " + point.text;
 				}
 
-				console.log(point.text.substring(0, 1));
+				// point.options.title = plotXTempArray.indexOf(plotX) >= 0 ? titleArray[plotXArray.length - 1] : point.options.title;
+
 				// shortcuts
 				pointAttr = point.pointAttr[point.selected ? 'select' : ''] || seriesPointAttr;
 				if (graphic) { // update

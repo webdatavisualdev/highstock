@@ -63,7 +63,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="selected-sections"></div>
+		<div class="selected-categories"></div>
 		<div class="filter-checkbox">
 			<label><input type="checkbox"> PRIMARY</label>
 			<label><input type="checkbox"> SIGNIFICANT NEWS</label>
@@ -102,7 +102,7 @@
 <script src="js/script.js"></script>
 <script>
 var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope) {
+app.controller('myCtrl', function($scope, $compile) {
 	$scope.companyData;
 	$scope.typeData = [];
 	$scope.currentType;
@@ -132,18 +132,29 @@ app.controller('myCtrl', function($scope) {
 		});
 		d3.csv("data/news-category.csv", function(data) {
 			$scope.newsSections = data;
-			var selected = "N";
+			var tempCategory = [];
 			data.map(function(d) {
-				if(d.default == "Y" && $scope.categories.length != 0 && $scope.categories[$scope.categories.length - 1].name == d.category) {
-					selected = "Y";
+				if(d.default == "Y") {
+					if(tempCategory.indexOf(d.category) < 0) {
+						tempCategory.push(d.category);
+					}
 				}
-				if($scope.categories.length == 0 || $scope.categories[$scope.categories.length - 1].name != d.category) {
+				var flag = false;
+				$scope.categories.map(function(c) {
+					if(c.name == d.category) {
+						flag = true;
+					}
+				});
+				if(!flag) {
+					var selected = tempCategory.indexOf(d.category) >= 0 ? "Y" : "N";
 					$scope.categories.push({name: d.category, selected: selected, count: 0});
-					selected = "N";
 				}
 			});
 			for(var i = 0 ; i < $scope.categories.length ; i ++) {
 				$scope.showIcon[i] = false;
+				if($scope.categories[i].selected == "Y") {
+					$scope.changeFilteredCategories(i);
+				}
 			}
 			$scope.$apply();
 		});
@@ -329,7 +340,9 @@ app.controller('myCtrl', function($scope) {
 
 	$scope.getCategoryClass = function(data) {
 		var className = '';
+		var i = 0;
 		$scope.categories.map(function(d) {
+			i ++;
 			if(d.name == data.name && data.selected == "N") {
 				className = '';
 			} else if(d.name == data.name && data.selected == "Y") {
@@ -363,6 +376,37 @@ app.controller('myCtrl', function($scope) {
 			$scope.showIcon[i] = false;
 		}
 		$scope.showIcon[index] = $scope.showIcon[index] == false ? true : false;
+		$scope.changeFilteredCategories(index);
+	}
+
+	$scope.changeFilteredCategories = function(index) {
+		var temp = [];
+		for(var i = 0 ; i < $(".selected-categories span").length ; i ++) {
+			var str = $($(".selected-categories span")[i]).text();
+			str = str.substring(0, str.indexOf("(") - 1);
+			temp.push(str);
+		}
+		if($scope.categories[index].selected == "Y") {
+			if(temp.indexOf($scope.categories[index].name) < 0) {
+				var $el = $(".selected-categories").append("<span class='category"+ index +"'>"+$scope.categories[index].name + " (" + $scope.categories[index].count +") <i class='fa fa-close' data-ng-click='removeCategory("+ index +")'></i></span>");
+				$compile($el)($scope);
+			}
+		} else {
+			for(var i = 0 ; i < $(".selected-categories span").length ; i ++) {
+				var str = $($(".selected-categories span")[i]).text();
+				str = str.substring(0, str.indexOf("(") - 1);
+				if(str == $scope.categories[index].name) {
+					console.log(this);
+					$($(".selected-categories span")[i]).remove();
+					break;
+				}
+			}			
+		}	
+	}
+
+	$scope.removeCategory = function(index) {
+		$(".selected-categories span.category" + index).remove();
+		$scope.categories[index].selected = "N";
 	}
 });
 </script>

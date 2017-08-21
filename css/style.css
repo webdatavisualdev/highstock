@@ -199,3 +199,19 @@ li.selected .category-name {
 .checkbox .fa-close {
 	margin-left: 20px;
 }
+.selected-categories {
+	padding: 10px 10px 0;
+}
+.selected-categories span {
+	background: #5b9bd5;
+	display: inline-block;
+	color: white;
+	border-radius: 3px;
+	font-size: 12px;
+	padding: 2px 0 2px 15px;
+	margin: 5px 10px 0 0;
+}
+.selected-categories i {
+	margin-left: 10px;
+	margin-right: 5px;
+}
