@@ -1,6 +1,6 @@
 <?php
-// shell_exec("ssh -f -L 3307:127.0.0.1:8082 kmpscazrwg@45.76.20.111 sleep 60 >> logfile");  
-// $db = mysqli_connect('45.76.20.111', "kmpscazrwg", "5VkSQGX5Gc", "kmpscazrwg", 3307);
+// // shell_exec("ssh -f -L 3307:127.0.0.1:8082 master_qhefhbeemq@45.76.240.68 sleep 60 >> logfile");  
+// $db = mysqli_connect('localhost', "wmaavxkuss", "2tsD2fA42e", "wmaavxkuss", 3307);
 // mysql_select_db( "db", $db );
 // if (!$db) {
 //     echo "Error: Unable to connect to MySQL." . PHP_EOL;
@@ -8,28 +8,28 @@
 //     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
 //     exit;
 // }
-// $mysqli = new mysqli("45.76.240.68:8082", "wmaavxkuss", "2tsD2fA42e", "wmaavxkuss");
-// if ($mysqli->ping()) {
-//     printf ("Our connection is ok!\n");
-// } else {
-//     printf ("Error: %s\n", $mysqli->error);
-// }
+$mysqli = new mysqli("localhost", "wmaavxkuss", "2tsD2fA42e", "wmaavxkuss");
+if ($mysqli->ping()) {
+    printf ("Our connection is ok!\n");
+} else {
+    printf ("Error: %s\n", $mysqli->error);
+}
 
-	$servername = "45.76.240.68:8082";
-	$username = "wmaavxkuss";
-	$password = "2tsD2fA42e";
+	// $servername = "45.76.240.68:8082";
+	// $username = "wmaavxkuss";
+	// $password = "2tsD2fA42e";
 	
-	try {
-		$conn = new PDO("mysql:host=$servername;dbname=wmaavxkuss", $username, $password);
-		// set the PDO error mode to exception
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		echo "Connected successfully"; 
-		}
-	catch(PDOException $e)
-		{
-		echo "Connection failed: " . $e->getMessage();
-		die("Error");
-		}
+	// try {
+	// 	$conn = new PDO("mysql:host=$servername;dbname=wmaavxkuss", $username, $password);
+	// 	// set the PDO error mode to exception
+	// 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	// 	echo "Connected successfully"; 
+	// 	}
+	// catch(PDOException $e)
+	// 	{
+	// 	echo "Connection failed: " . $e->getMessage();
+	// 	die("Error");
+	// 	}
 	// $db = new db();
 	
 	// $results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
