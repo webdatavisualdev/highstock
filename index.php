@@ -6,6 +6,8 @@
 		echo "<pre>";
 		var_dump($results[$i]);
 		var_dump($results[$i]["s_timestamp"]);
+		var_dump($results[$i]["price"]);
+		var_dump($results[$i]["volumn"]);
 		echo "</pre>";
 	}
 	
