@@ -1,12 +1,10 @@
 <?php
 	$db = new db();
 	
-	$results = $db->query("SELECT * FROM stock_volumn LIMIT 50", TRUE);	
-
-	echo "<pre>";
-	var_dump($results);
-	echo "</pre>";
-	
+	$results = $db->query("SELECT * FROM stock_volumn", TRUE);
+	for($i = 0 ; $i < count($results) ; $i ++) {
+		echo $results[$i]["price"];
+	}
 	
 	class db {
 	
@@ -177,6 +175,7 @@ app.controller('myCtrl', function($scope, $compile) {
 				data3.sort(compare);
 				totalData = data3;
 				chartData3 = getChartData(data3);
+				console.log(chartData3);
 				drawChart(chartData3);
 	            var startInd = getIndex(1, "month", "1m", 0, chartData3);
 	            displayNews(startInd, newsData.length-1, -1);
