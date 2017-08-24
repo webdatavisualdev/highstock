@@ -114,40 +114,33 @@ app.controller('myCtrl', function($scope, $compile) {
 	$(document).ready(function(){
 		var chartData3;
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				var data = JSON.parse(this.responseText);
-				var totalData = [];
-				data.map(function(d) {
-					totalData.push({
-						Ticker: d.isin,
-						date: d.s_timestamp,
-						close: d.price,
-						volumn: 0,
-						sentiment: null
-					});
-				});
-				chartData3 = getChartData(totalData);
-				drawChart(chartData3);
-			}
-		};
-		xmlhttp.open("GET", "data.php", true);
-		xmlhttp.send();
 
 		//makeGrouping();
-		// d3.json("data/data.json", function(data3){
-		// 	d3.json("data/news.json", function(data){
-		// 		data.sort(compareNew);
-		// 		newsData = data;
-		// 		data3.sort(compare);
-		// 		totalData = data3;
-		// 		chartData3 = getChartData(data3);
-		// 		console.log(chartData3);
-		// 		drawChart(chartData3);
-	    //         var startInd = getIndex(1, "month", "1m", 0, chartData3);
-	    //         displayNews(startInd, newsData.length-1, -1);
-		// 	});
-		// });
+		d3.json("data/news.json", function(data){
+			data.sort(compareNew);
+			newsData = data;
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var data = JSON.parse(this.responseText);
+					var totalData = [];
+					data.map(function(d) {
+						totalData.push({
+							Ticker: d.isin,
+							date: d.s_timestamp,
+							close: d.price,
+							volumn: 0,
+							sentiment: null
+						});
+					});
+					chartData3 = getChartData(totalData);
+					drawChart(chartData3);
+					var startInd = getIndex(1, "month", "1m", 0, chartData3);
+					displayNews(startInd, newsData.length-1, -1);
+				}
+			};
+			xmlhttp.open("GET", "chartdata.php", true);
+			xmlhttp.send();
+		});
 		d3.csv("data/company.csv", function(data) {
 			$scope.companyData = data;
 			$scope.addTableBody("type1");
