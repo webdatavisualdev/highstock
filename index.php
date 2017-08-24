@@ -9,7 +9,7 @@
 	
 	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
 
-	$results = $db->queryDB();
+	// $results = $db->queryDB();
 	echo "<pre>";
 	var_dump($results);
 	echo "</pre>";
