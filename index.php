@@ -61,9 +61,12 @@
 		}
 
 		function queryDB() {
-			$sql = "SELECT * FROM EOD_stock_price_history LIMIT 50";
-			$result = $conn->query($sql);
-			return $result;
+			$sql = `SELECT * FROM EOD_stock_price_history LIMIT 50`;
+			$result = $this->mysqli->query($sql);
+			for ($set = array(); $row = $result->fetch_assoc();) {
+			$set[] = $row;
+			}
+			return $set;
 		}
 	}
 ?>
