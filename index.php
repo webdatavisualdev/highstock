@@ -2,10 +2,12 @@
 	$db = new db();
 	
 	$results = $db->query("SELECT * FROM stock_volumn LIMIT 1000", TRUE);
-	print_r($results);
 	for($i = 0 ; $i < count($results) ; $i ++) {
-		printf($results[$i]["price"]);
+		echo "<pre>";
+		var_dump($results[$i]["price"]);
+		echo "</pre>";
 	}
+	
 	
 	class db {
 	
