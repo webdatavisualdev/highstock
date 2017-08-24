@@ -132,7 +132,9 @@ app.controller('myCtrl', function($scope, $compile) {
 							sentiment: null
 						});
 					});
+					totalData.sort(compare);
 					chartData3 = getChartData(totalData);
+					console.log(chartData3);
 					drawChart(chartData3);
 					var startInd = getIndex(1, "month", "1m", 0, chartData3);
 					displayNews(startInd, newsData.length-1, -1);
