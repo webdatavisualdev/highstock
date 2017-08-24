@@ -2,15 +2,7 @@
 	$db = new db();
 	
 	$results = $db->query("SELECT * FROM EOD_stock_price_history LIMIT 1000", TRUE);
-	for($i = 0 ; $i < count($results) ; $i ++) {
-		echo "<pre>";
-		var_dump($results[$i]);
-		var_dump($results[$i]["s_timestamp"]);
-		var_dump($results[$i]["price"]);
-		var_dump($results[$i]["volumn"]);
-		echo "</pre>";
-	}
-	
+	echo json_encode($results);
 	
 	class db {
 	
@@ -146,6 +138,17 @@
 	        </div>
 	    </div>
 	</div>
+<script>
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+        console.log(myObj.name);
+    }
+};
+xmlhttp.open("GET", "index.php", true);
+xmlhttp.send();
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	var dateGroupIndex, newsData, chart, totalData;
