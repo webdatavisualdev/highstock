@@ -117,8 +117,9 @@ app.controller('myCtrl', function($scope, $compile) {
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var data = JSON.parse(this.responseText);
+				var totalData = [];
 				data.map(function(d) {
-					chartData3.push({
+					totalData.push({
 						Ticker: d.isin,
 						date: d.s_timestamp,
 						close: d.price,
@@ -126,7 +127,7 @@ app.controller('myCtrl', function($scope, $compile) {
 						sentiment: null
 					});
 				});
-				chartData3 = getChartData(chartData3);
+				chartData3 = getChartData(totalData);
 				drawChart(chartData3);
 			}
 		};
