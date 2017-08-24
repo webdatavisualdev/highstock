@@ -1,15 +1,8 @@
 <?php
 	$db = new db();
 	
-	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
-	
-	$results = $db->query("SET session wait_timeout=28800", FALSE);
-	// UPDATE - this is also needed
-	$results = $db->query("SET session interactive_timeout=28800", FALSE);
-	
-	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
+	$results = $db->query("SELECT * FROM stock_volumn LIMIT 50", TRUE);	
 
-	$db->queryDB();
 	echo "<pre>";
 	var_dump($results);
 	echo "</pre>";
@@ -58,16 +51,6 @@
 				$stmt->close();
 				return $set;
 			}
-		}
-
-		function queryDB() {
-			$sql = `SELECT * FROM EOD_stock_price_history LIMIT 50`;
-			$result = $this->mysqli->query($sql);
-			for ($set = array(); $row = $result->fetch_assoc();) {
-				$set[] = $row;
-				echo "<a>".$row["isin"]."</a>";
-			}
-			// return $set;
 		}
 	}
 ?>
