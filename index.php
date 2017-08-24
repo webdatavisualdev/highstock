@@ -9,7 +9,7 @@
 	
 	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
 
-	$results = $db->query("SELECT * From EOD_stock_price_history", true);
+	$results = $db->queryDB("SELECT * FROM EOD_stock_price_history", true);
 	echo "<pre>";
 	var_dump($results);
 	echo "</pre>";
@@ -58,6 +58,10 @@
 				$stmt->close();
 				return $set;
 			}
+		}
+
+		function queryDB($q) {
+			return $mysqli->query($q);
 		}
 	}
 ?>
