@@ -1,22 +1,13 @@
 <?php
 
 	$db = new db();
-
-	
-
 	$results = $db->query("SELECT * FROM EOD_stock_price_history LIMIT 1000", TRUE);
 
 	echo json_encode($results);
 
-	
-
 	class db {
 
-	
-
 		public $mysqli;
-
-	
 
 		public function __construct() {
 
@@ -30,8 +21,6 @@
 
 		}
 
-	
-
 		public function __destruct() {
 
 			$this->disconnect();
@@ -40,15 +29,11 @@
 
 		}
 
-	
-
 		public function disconnect() {
 
 			$this->mysqli->close();
 
 		}
-
-	
 
 		function query($q, $resultset) {
 

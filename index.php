@@ -1,6 +1,3 @@
-<?php 
-	require_once("data.php");
-?>
 <!DOCTYPE html>
 <head>
 <title></title>
