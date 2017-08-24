@@ -1,19 +1,19 @@
 <?php
-shell_exec("ssh -f -L 3307:45.76.20.111:8082 kmpscazrwg@cloudways.com sleep 60 >> logfile");  
-$db = mysqli_connect('45.76.20.111', "kmpscazrwg", "5VkSQGX5Gc", "kmpscazrwg", 3307);
-mysql_select_db( "db", $db );
-if (!$db) {
-    echo "Error: Unable to connect to MySQL." . PHP_EOL;
-    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-    exit;
-}
-// $mysqli = new mysqli("45.76.20.111:8082", "kmpscazrwg", "5VkSQGX5Gc", "kmpscazrwg");
-// if ($mysqli->ping()) {
-//     printf ("Our connection is ok!\n");
-// } else {
-//     printf ("Error: %s\n", $mysqli->error);
+// shell_exec("ssh -f -L 3307:127.0.0.1:8082 kmpscazrwg@45.76.20.111 sleep 60 >> logfile");  
+// $db = mysqli_connect('45.76.20.111', "kmpscazrwg", "5VkSQGX5Gc", "kmpscazrwg", 3307);
+// mysql_select_db( "db", $db );
+// if (!$db) {
+//     echo "Error: Unable to connect to MySQL." . PHP_EOL;
+//     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+//     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+//     exit;
 // }
+$mysqli = new mysqli("45.76.240.68:8082", "wmaavxkuss", "2tsD2fA42e", "wmaavxkuss");
+if ($mysqli->ping()) {
+    printf ("Our connection is ok!\n");
+} else {
+    printf ("Error: %s\n", $mysqli->error);
+}
 
 	// $servername = "45.76.20.111:8082";
 	// $username = "kmpscazrwg";
