@@ -2,15 +2,14 @@
 	$db = new db();
 	
 	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
-	echo "<pre>";
-	var_dump($results);
-	echo "</pre>";
 	
 	$results = $db->query("SET session wait_timeout=28800", FALSE);
 	// UPDATE - this is also needed
 	$results = $db->query("SET session interactive_timeout=28800", FALSE);
 	
 	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
+
+	$results = $db->query("SELECT * From EOD_stock_price_history", true);
 	echo "<pre>";
 	var_dump($results);
 	echo "</pre>";
