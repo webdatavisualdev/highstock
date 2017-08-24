@@ -2,7 +2,7 @@
 	$db = new db();
 	
 	$results = $db->query("SELECT * FROM stock_volumn LIMIT 1000", TRUE);
-	printf($results);
+	print_r($results);
 	for($i = 0 ; $i < count($results) ; $i ++) {
 		printf($results[$i]["price"]);
 	}
