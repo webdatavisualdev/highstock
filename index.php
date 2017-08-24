@@ -9,7 +9,7 @@
 	
 	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
 
-	$results = $db->queryDB("select * from intrinio_close_price");
+	$results = $db->queryDB();
 	echo "<pre>";
 	var_dump($results);
 	echo "</pre>";
@@ -60,8 +60,10 @@
 			}
 		}
 
-		function queryDB($q) {
-			return $mysqli->query($q);
+		function queryDB() {
+			$sql = "SELECT * FROM `EOD_stock_price_history` LIMIT 50";
+			$result = $conn->query($sql);
+			return $result;
 		}
 	}
 ?>
