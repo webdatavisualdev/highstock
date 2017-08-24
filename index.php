@@ -9,7 +9,7 @@
 	
 	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
 
-	$results = $db->queryDB(`SELECT * FROM intrinio_close_price`);
+	$results = $db->queryDB("select * from intrinio_close_price");
 	echo "<pre>";
 	var_dump($results);
 	echo "</pre>";
