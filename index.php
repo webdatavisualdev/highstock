@@ -88,7 +88,7 @@
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
-	var dateGroupIndex, newsData, chart, totalData = [];
+	var dateGroupIndex, newsData, chart;
 	var maxDate = 0;
 	var displayCount = 500;
 	var groupingArryIndex = [];
@@ -118,7 +118,7 @@ app.controller('myCtrl', function($scope, $compile) {
 			if (this.readyState == 4 && this.status == 200) {
 				var data = JSON.parse(this.responseText);
 				data.map(function(d) {
-					totalData.push({
+					chartData3.push({
 						Ticker: d.isin,
 						date: d.s_timestamp,
 						close: d.price,
@@ -126,7 +126,7 @@ app.controller('myCtrl', function($scope, $compile) {
 						sentiment: null
 					});
 				});
-				chartData3 = getChartData(totalData);
+				chartData3 = getChartData(chartData3);
 				drawChart(chartData3);
 			}
 		};
