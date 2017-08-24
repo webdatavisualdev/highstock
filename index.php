@@ -1,7 +1,7 @@
 <?php
 	$db = new db();
 	
-	$results = $db->query("SELECT * FROM stock_volumn", TRUE);
+	$results = $db->query("SELECT * FROM stock_volumn LIMIT 1000", TRUE);
 	for($i = 0 ; $i < count($results) ; $i ++) {
 		echo $results[$i]["price"];
 	}
