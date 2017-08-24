@@ -1,27 +1,27 @@
 <?php
-// $mysqli = new mysqli("45.76.20.111:8082", "kmpscazrwg", "5VkSQGX5Gc", "intrinio_close_price");
-// if ($mysqli->ping()) {
-//     printf ("Our connection is ok!\n");
-// } else {
-//     printf ("Error: %s\n", $mysqli->error);
-// }
+$mysqli = new mysqli("45.76.20.111:8082", "kmpscazrwg", "5VkSQGX5Gc", "kmpscazrwg");
+if ($mysqli->ping()) {
+    printf ("Our connection is ok!\n");
+} else {
+    printf ("Error: %s\n", $mysqli->error);
+}
 
-	$servername = "45.76.20.111:8082";
-	$username = "kmpscazrwg";
-	$password = "5VkSQGX5Gc";
+	// $servername = "45.76.20.111:8082";
+	// $username = "kmpscazrwg";
+	// $password = "5VkSQGX5Gc";
 	
-	try {
-		$conn = new PDO("mysql:host=$servername;dbname=kmpscazrwg", $username, $password);
-		// set the PDO error mode to exception
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		echo "Connected successfully"; 
-		}
-	catch(PDOException $e)
-		{
-		echo "Connection failed: " . $e->getMessage();
-		die("Error");
-		}
-	$db = new db();
+	// try {
+	// 	$conn = new PDO("mysql:host=$servername;dbname=kmpscazrwg", $username, $password);
+	// 	// set the PDO error mode to exception
+	// 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	// 	echo "Connected successfully"; 
+	// 	}
+	// catch(PDOException $e)
+	// 	{
+	// 	echo "Connection failed: " . $e->getMessage();
+	// 	die("Error");
+	// 	}
+	// $db = new db();
 	
 	// $results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
 	// echo "<pre>";
