@@ -1,10 +1,10 @@
 <?php
-$mysqli = new mysqli("45.76.20.111:8082", "kmpscazrwg", "5VkSQGX5Gc", "kmpscazrwg");
-if ($mysqli->ping()) {
-    printf ("Our connection is ok!\n");
-} else {
-    printf ("Error: %s\n", $mysqli->error);
-}
+// $mysqli = new mysqli("45.76.20.111:8082", "kmpscazrwg", "5VkSQGX5Gc", "kmpscazrwg");
+// if ($mysqli->ping()) {
+//     printf ("Our connection is ok!\n");
+// } else {
+//     printf ("Error: %s\n", $mysqli->error);
+// }
 
 	// $servername = "45.76.20.111:8082";
 	// $username = "kmpscazrwg";
@@ -21,68 +21,68 @@ if ($mysqli->ping()) {
 	// 	echo "Connection failed: " . $e->getMessage();
 	// 	die("Error");
 	// 	}
-	// $db = new db();
+	$db = new db();
 	
-	// $results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
-	// echo "<pre>";
-	// var_dump($results);
-	// echo "</pre>";
+	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
+	echo "<pre>";
+	var_dump($results);
+	echo "</pre>";
 	
-	// $results = $db->query("SET session wait_timeout=28800", FALSE);
-	// // UPDATE - this is also needed
-	// $results = $db->query("SET session interactive_timeout=28800", FALSE);
+	$results = $db->query("SET session wait_timeout=28800", FALSE);
+	// UPDATE - this is also needed
+	$results = $db->query("SET session interactive_timeout=28800", FALSE);
 	
-	// $results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
-	// echo "<pre>";
-	// var_dump($results);
-	// echo "</pre>";
+	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
+	echo "<pre>";
+	var_dump($results);
+	echo "</pre>";
 	
 	
-	// class db {
+	class db {
 	
-	// 	public $mysqli;
+		public $mysqli;
 	
-	// 	public function __construct() {
-	// 		$this->mysqli = new mysqli("45.76.20.111:8082", "kmpscazrwg", "5VkSQGX5Gc", "intrinio_close_price");
-	// 		if (mysqli_connect_errno()) {
-	// 			exit();
-	// 		}
-	// 	}
+		public function __construct() {
+			$this->mysqli = new mysqli("45.76.20.111:8082", "kmpscazrwg", "5VkSQGX5Gc", "kmpscazrwg");
+			if (mysqli_connect_errno()) {
+				exit();
+			}
+		}
 	
-	// 	public function __destruct() {
-	// 		$this->disconnect();
-	// 		unset($this->mysqli);
-	// 	}
+		public function __destruct() {
+			$this->disconnect();
+			unset($this->mysqli);
+		}
 	
-	// 	public function disconnect() {
-	// 		$this->mysqli->close();
-	// 	}
+		public function disconnect() {
+			$this->mysqli->close();
+		}
 	
-	// 	function query($q, $resultset) {
+		function query($q, $resultset) {
 	
-	// 		/* create a prepared statement */
-	// 		if (!($stmt = $this->mysqli->prepare($q))) {
-	// 			echo("Sql Error: " . $q . ' Sql error #: ' . $this->mysqli->errno . ' - ' . $this->mysqli->error);
-	// 			return false;
-	// 		}
+			/* create a prepared statement */
+			if (!($stmt = $this->mysqli->prepare($q))) {
+				echo("Sql Error: " . $q . ' Sql error #: ' . $this->mysqli->errno . ' - ' . $this->mysqli->error);
+				return false;
+			}
 	
-	// 		/* execute query */
-	// 		$stmt->execute();
+			/* execute query */
+			$stmt->execute();
 	
-	// 		if ($stmt->errno) {
-	// 			echo("Sql Error: " . $q . ' Sql error #: ' . $stmt->errno . ' - ' . $stmt->error);
-	// 			return false;
-	// 		}
-	// 		if ($resultset) {
-	// 			$result = $stmt->get_result();
-	// 			for ($set = array(); $row = $result->fetch_assoc();) {
-	// 			$set[] = $row;
-	// 			}
-	// 			$stmt->close();
-	// 			return $set;
-	// 		}
-	// 	}
-	// }
+			if ($stmt->errno) {
+				echo("Sql Error: " . $q . ' Sql error #: ' . $stmt->errno . ' - ' . $stmt->error);
+				return false;
+			}
+			if ($resultset) {
+				$result = $stmt->get_result();
+				for ($set = array(); $row = $result->fetch_assoc();) {
+				$set[] = $row;
+				}
+				$stmt->close();
+				return $set;
+			}
+		}
+	}
 ?>
 <!DOCTYPE html>
 <head>
