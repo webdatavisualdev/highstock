@@ -9,7 +9,7 @@
 	
 	$results = $db->query("SHOW VARIABLES LIKE '%timeout%'", TRUE);
 
-	// $results = $db->queryDB();
+	$db->queryDB();
 	echo "<pre>";
 	var_dump($results);
 	echo "</pre>";
@@ -64,9 +64,10 @@
 			$sql = `SELECT * FROM EOD_stock_price_history LIMIT 50`;
 			$result = $this->mysqli->query($sql);
 			for ($set = array(); $row = $result->fetch_assoc();) {
-			$set[] = $row;
+				$set[] = $row;
+				echo "<a>".$row["isin"]."</a>";
 			}
-			return $set;
+			// return $set;
 		}
 	}
 ?>
