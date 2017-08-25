@@ -156,7 +156,7 @@ app.controller('myCtrl', function($scope, $compile) {
 			success: function(data) {
 				requestCallback.addCallbackToQueue(true, function() {
 					d3.json("data/news.json", function(newsdata){
-						data.sort(compareNew);
+						newsdata.sort(compareNew);
 						newsData = newsdata;
 						var data = JSON.parse(data);
 						var totalData = [];
