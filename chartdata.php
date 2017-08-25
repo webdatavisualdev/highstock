@@ -3,7 +3,7 @@
 	$date = date("y-m-d");
 	echo $date;
 	$db = new db();
-	$results = $db->query("SELECT * FROM EOD_stock_price_history WHERE type = 'stockprice' AND price > 0 AND do_date between '2012-1-1' AND '".$date."' LIMIT 15000", TRUE);
+	$results = $db->query("SELECT * FROM select intrinio_close_price WHERE type = 'stockprice' AND do_date between '2012-1-1' AND '".$date."' LIMIT 15000", TRUE);
 
 	echo json_encode($results);
 
