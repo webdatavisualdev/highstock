@@ -114,36 +114,7 @@ app.controller('myCtrl', function($scope, $compile) {
 	$(document).ready(function(){
 		var chartData3;
 		var xmlhttp = new XMLHttpRequest();
-		//initialize 
-		var requestCallback = new MyRequestsCompleted({
-			numRequest: 3
-		});
 
-		//usage in request
-		$.ajax({
-			url: 'chartdata.php',
-			success: function(data) {
-				requestCallback.addCallbackToQueue(true, function() {
-					console.log(data);
-				});
-			}
-		});
-		$.ajax({
-			url: 'newsdata.php',
-			success: function(data) {
-				requestCallback.addCallbackToQueue(true, function() {
-					console.log(data);
-				});
-			}
-		});
-		$.ajax({
-			url: 'sentiment.php',
-			success: function(data) {
-				requestCallback.addCallbackToQueue(true, function() {
-					console.log(data);
-				});
-			}
-		});
 
 		var MyRequestsCompleted = (function() {
 			var numRequestToComplete, requestsCompleted, callBacks, singleCallBack;
@@ -174,6 +145,37 @@ app.controller('myCtrl', function($scope, $compile) {
 				};
 			};
 		})();
+
+		//initialize 
+		var requestCallback = new MyRequestsCompleted({
+			numRequest: 3
+		});
+
+		//usage in request
+		$.ajax({
+			url: 'chartdata.php',
+			success: function(data) {
+				requestCallback.addCallbackToQueue(true, function() {
+					console.log(data);
+				});
+			}
+		});
+		$.ajax({
+			url: 'newsdata.php',
+			success: function(data) {
+				requestCallback.addCallbackToQueue(true, function() {
+					console.log(data);
+				});
+			}
+		});
+		$.ajax({
+			url: 'sentiment.php',
+			success: function(data) {
+				requestCallback.addCallbackToQueue(true, function() {
+					console.log(data);
+				});
+			}
+		});
 		//makeGrouping();
 		d3.json("data/news.json", function(data){
 			data.sort(compareNew);
