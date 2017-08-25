@@ -1,7 +1,7 @@
 <?php
 
 	$db = new db();
-	$results = $db->query("SELECT * FROM EOD_stock_price_history LIMIT 100000", TRUE);
+	$results = $db->query("SELECT * FROM sentiments LIMIT 100000", TRUE);
 
 	echo json_encode($results);
 
