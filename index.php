@@ -116,69 +116,69 @@ app.controller('myCtrl', function($scope, $compile) {
 		var xmlhttp = new XMLHttpRequest();
 
 
-		var MyRequestsCompleted = (function() {
-			var numRequestToComplete, requestsCompleted, callBacks, singleCallBack;
+		// var MyRequestsCompleted = (function() {
+		// 	var numRequestToComplete, requestsCompleted, callBacks, singleCallBack;
 
-			return function(options) {
-				if (!options) options = {};
+		// 	return function(options) {
+		// 		if (!options) options = {};
 
-				numRequestToComplete = options.numRequest || 0;
-				requestsCompleted = options.requestsCompleted || 0;
-				callBacks = [];
-				var fireCallbacks = function() {
-					for (var i = 0; i < callBacks.length; i++) callBacks[i]();
-				};
-				if (options.singleCallback) callBacks.push(options.singleCallback);
+		// 		numRequestToComplete = options.numRequest || 0;
+		// 		requestsCompleted = options.requestsCompleted || 0;
+		// 		callBacks = [];
+		// 		var fireCallbacks = function() {
+		// 			for (var i = 0; i < callBacks.length; i++) callBacks[i]();
+		// 		};
+		// 		if (options.singleCallback) callBacks.push(options.singleCallback);
 
-				this.addCallbackToQueue = function(isComplete, callback) {
-					if (isComplete) requestsCompleted++;
-					if (callback) callBacks.push(callback);
-					if (requestsCompleted == numRequestToComplete) fireCallbacks();
-				};
-				this.requestComplete = function(isComplete) {
-					if (isComplete) requestsCompleted++;
-					if (requestsCompleted == numRequestToComplete) fireCallbacks();
-				};
-				this.setCallback = function(callback) {
-					callBacks.push(callBack);
-				};
-			};
-		})();
+		// 		this.addCallbackToQueue = function(isComplete, callback) {
+		// 			if (isComplete) requestsCompleted++;
+		// 			if (callback) callBacks.push(callback);
+		// 			if (requestsCompleted == numRequestToComplete) fireCallbacks();
+		// 		};
+		// 		this.requestComplete = function(isComplete) {
+		// 			if (isComplete) requestsCompleted++;
+		// 			if (requestsCompleted == numRequestToComplete) fireCallbacks();
+		// 		};
+		// 		this.setCallback = function(callback) {
+		// 			callBacks.push(callBack);
+		// 		};
+		// 	};
+		// })();
 
 		//initialize 
-		var requestCallback = new MyRequestsCompleted({
-			numRequest: 1
-		});
+		// var requestCallback = new MyRequestsCompleted({
+		// 	numRequest: 1
+		// });
 
 		//usage in request
-		$.ajax({
-			url: 'chartdata.php',
-			success: function(data) {
-				requestCallback.addCallbackToQueue(true, function() {
-					d3.json("data/news.json", function(newsdata){
-						newsdata.sort(compareNew);
-						newsData = newsdata;
-						var data = JSON.parse(data);
-						var totalData = [];
-						data.map(function(d) {
-							totalData.push({
-								Ticker: d.isin,
-								date: d.s_timestamp,
-								close: d.price,
-								volumn: 0,
-								sentiment: null
-							});
-						});
-						totalData.sort(compare);
-						chartData3 = getChartData(totalData);
-						console.log(chartData3);
-						drawChart(chartData3);
-						var startInd = getIndex(1, "month", "1m", 0, chartData3);
-						displayNews(startInd, newsData.length-1, -1);
-					});
-				});
-			}
-		});
+		// $.ajax({
+		// 	url: 'chartdata.php',
+		// 	success: function(data) {
+		// 		requestCallback.addCallbackToQueue(true, function() {
+		// 			d3.json("data/news.json", function(newsdata){
+		// 				newsdata.sort(compareNew);
+		// 				newsData = newsdata;
+		// 				var data = JSON.parse(data);
+		// 				var totalData = [];
+		// 				data.map(function(d) {
+		// 					totalData.push({
+		// 						Ticker: d.isin,
+		// 						date: d.s_timestamp,
+		// 						close: d.price,
+		// 						volumn: 0,
+		// 						sentiment: null
+		// 					});
+		// 				});
+		// 				totalData.sort(compare);
+		// 				chartData3 = getChartData(totalData);
+		// 				console.log(chartData3);
+		// 				drawChart(chartData3);
+		// 				var startInd = getIndex(1, "month", "1m", 0, chartData3);
+		// 				displayNews(startInd, newsData.length-1, -1);
+		// 			});
+		// 		});
+		// 	}
+		// });
 		// $.ajax({
 		// 	url: 'newsdata.php',
 		// 	success: function(data) {
@@ -199,29 +199,29 @@ app.controller('myCtrl', function($scope, $compile) {
 		d3.json("data/news.json", function(data){
 			data.sort(compareNew);
 			newsData = data;
-			// xmlhttp.onreadystatechange = function() {
-			// 	if (this.readyState == 4 && this.status == 200) {
-			// 		var data = JSON.parse(this.responseText);
-			// 		var totalData = [];
-			// 		data.map(function(d) {
-			// 			totalData.push({
-			// 				Ticker: d.isin,
-			// 				date: d.s_timestamp,
-			// 				close: d.price,
-			// 				volumn: 0,
-			// 				sentiment: null
-			// 			});
-			// 		});
-			// 		totalData.sort(compare);
-			// 		chartData3 = getChartData(totalData);
-			// 		console.log(chartData3);
-			// 		drawChart(chartData3);
-			// 		var startInd = getIndex(1, "month", "1m", 0, chartData3);
-			// 		displayNews(startInd, newsData.length-1, -1);
-			// 	}
-			// };
-			// xmlhttp.open("GET", "chartdata.php", true);
-			// xmlhttp.send();
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var data = JSON.parse(this.responseText);
+					var totalData = [];
+					data.map(function(d) {
+						totalData.push({
+							Ticker: d.isin,
+							date: d.s_timestamp,
+							close: d.price,
+							volumn: 0,
+							sentiment: null
+						});
+					});
+					totalData.sort(compare);
+					chartData3 = getChartData(totalData);
+					console.log(chartData3);
+					drawChart(chartData3);
+					var startInd = getIndex(1, "month", "1m", 0, chartData3);
+					displayNews(startInd, newsData.length-1, -1);
+				}
+			};
+			xmlhttp.open("GET", "chartdata.php", true);
+			xmlhttp.send();
 		});
 
 		d3.csv("data/company.csv", function(data) {
