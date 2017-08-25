@@ -196,33 +196,46 @@ app.controller('myCtrl', function($scope, $compile) {
 		// 	}
 		// });
 		//makeGrouping();
-		d3.json("data/news.json", function(data){
-			data.sort(compareNew);
-			newsData = data;
-			xmlhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var data = JSON.parse(this.responseText);
-					var totalData = [];
-					data.map(function(d) {
-						totalData.push({
-							Ticker: d.isin,
-							date: d.s_timestamp,
-							close: d.price,
-							volumn: 0,
-							sentiment: null
-						});
-					});
-					totalData.sort(compare);
-					chartData3 = getChartData(totalData);
-					console.log(chartData3);
-					drawChart(chartData3);
-					var startInd = getIndex(1, "month", "1m", 0, chartData3);
-					displayNews(startInd, newsData.length-1, -1);
-				}
-			};
-			xmlhttp.open("GET", "chartdata.php", true);
-			xmlhttp.send();
-		});
+		// d3.json("data/news.json", function(data){
+		// 	data.sort(compareNew);
+		// 	newsData = data;
+		// 	xmlhttp.onreadystatechange = function() {
+		// 		if (this.readyState == 4 && this.status == 200) {
+		// 			var data = JSON.parse(this.responseText);
+		// 			var totalData = [];
+		// 			data.map(function(d) {
+		// 				totalData.push({
+		// 					Ticker: d.isin,
+		// 					date: d.s_timestamp,
+		// 					close: d.price,
+		// 					volumn: 0,
+		// 					sentiment: null
+		// 				});
+		// 			});
+		// 			totalData.sort(compare);
+		// 			chartData3 = getChartData(totalData);
+		// 			console.log(chartData3);
+		// 			drawChart(chartData3);
+		// 			var startInd = getIndex(1, "month", "1m", 0, chartData3);
+		// 			displayNews(startInd, newsData.length-1, -1);
+		// 		}
+		// 	};
+		// 	xmlhttp.open("GET", "chartdata.php", true);
+		// 	xmlhttp.send();
+		// });
+
+		d3.json("data/data.json", function(data1){
+			d3.json("data/news.json", function(data){
+				data.sort(compareNew);
+				newsData = data;
+				data1.sort(compare);
+				chartData3 = getChartData(data1);
+				console.log(chartData3);
+				drawChart(chartData3);
+				var startInd = getIndex(1, "month", "1m", 0, chartData3);
+				displayNews(startInd, newsData.length-1, -1);
+			});
+		});		
 
 		d3.csv("data/company.csv", function(data) {
 			$scope.companyData = data;
