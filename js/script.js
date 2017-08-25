@@ -715,6 +715,7 @@ function getChartData(data){
   var startInd = data.length, flag = true;
   var intraIndex = 0;
     var k = 0;
+    console.log(data);
   for(var i = 0; i < data.length; i++){
     var dateArr = data[i].date.split(" ");
     var ymdArr = dateArr[0].split("/");

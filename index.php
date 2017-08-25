@@ -205,10 +205,10 @@ app.controller('myCtrl', function($scope, $compile) {
 		// 			var totalData = [];
 		// 			data.map(function(d) {
 		// 				totalData.push({
-		// 					Ticker: d.isin,
-		// 					date: d.s_timestamp,
-		// 					close: d.price,
-		// 					volumn: 0,
+		// 					Ticker: d.ticker,
+		// 					date: d.do_datetime,
+		// 					close: d.close,
+		// 					volumn: d.volume,
 		// 					sentiment: null
 		// 				});
 		// 			});
