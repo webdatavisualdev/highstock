@@ -144,18 +144,9 @@ app.controller('myCtrl', function($scope, $compile) {
 			xmlhttp.send();
 		});
 
-		xmlhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				var data = JSON.parse(this.responseText);
-				var totalData = [];
-				console.log(data);
-				data.map(function(d) {
-
-				});
-			}
-		};
-		xmlhttp.open("GET", "sentiment.php", true);
-		xmlhttp.send();
+		$.get("sentiment.php", function(data) {
+			console.log(data);
+		});
 
 		d3.csv("data/company.csv", function(data) {
 			$scope.companyData = data;
