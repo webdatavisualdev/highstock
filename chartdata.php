@@ -1,7 +1,7 @@
 <?php
 
 	$db = new db();
-	$results = $db->query("SELECT * FROM EOD_stock_price_history WHERE type = 'stockprice' AND do_date between '2012-1-1' AND '2017-8-30' LIMIT 10000", TRUE);
+	$results = $db->query("SELECT * FROM EOD_stock_price_history WHERE type = 'stockprice' AND do_date between '2012-1-1' AND '2017-8-30' LIMIT 5000", TRUE);
 
 	echo json_encode($results);
 
