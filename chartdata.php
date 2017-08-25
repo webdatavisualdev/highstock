@@ -3,7 +3,7 @@
 	$date = date("y-m-d");
 	echo $date;
 	$db = new db();
-	$results = $db->query("SELECT * FROM intrinio_close_price WHERE date between '2012-1-1' AND '".$date."' LIMIT 15000", TRUE);
+	$results = $db->query("SELECT * FROM stock_volumn WHERE volume > 0 AND do_date between '2012-1-1' AND '".$date."'", TRUE);
 
 	echo json_encode($results);
 
