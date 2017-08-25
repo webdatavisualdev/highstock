@@ -3,7 +3,7 @@
 	$date = date("y-m-d");
 	echo $date;
 	$db = new db();
-	$results = $db->query("SELECT * FROM select intrinio_close_price WHERE do_datetime between '2012-1-1' AND '20'"."'".$date."' LIMIT 15000", TRUE);
+	$results = $db->query("SELECT * FROM select intrinio_close_price WHERE do_datetime between '2012-1-1' AND '".$date."' LIMIT 15000", TRUE);
 
 	echo json_encode($results);
 
