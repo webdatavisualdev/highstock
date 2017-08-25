@@ -147,7 +147,7 @@ app.controller('myCtrl', function($scope, $compile) {
 
 		//initialize 
 		var requestCallback = new MyRequestsCompleted({
-			numRequest: 3
+			numRequest: 1
 		});
 
 		//usage in request
@@ -159,22 +159,22 @@ app.controller('myCtrl', function($scope, $compile) {
 				});
 			}
 		});
-		$.ajax({
-			url: 'newsdata.php',
-			success: function(data) {
-				requestCallback.addCallbackToQueue(true, function() {
-					console.log(data);
-				});
-			}
-		});
-		$.ajax({
-			url: 'sentiment.php',
-			success: function(data) {
-				requestCallback.addCallbackToQueue(true, function() {
-					console.log(data);
-				});
-			}
-		});
+		// $.ajax({
+		// 	url: 'newsdata.php',
+		// 	success: function(data) {
+		// 		requestCallback.addCallbackToQueue(true, function() {
+		// 			console.log(data);
+		// 		});
+		// 	}
+		// });
+		// $.ajax({
+		// 	url: 'sentiment.php',
+		// 	success: function(data) {
+		// 		requestCallback.addCallbackToQueue(true, function() {
+		// 			console.log(data);
+		// 		});
+		// 	}
+		// });
 		//makeGrouping();
 		d3.json("data/news.json", function(data){
 			data.sort(compareNew);
