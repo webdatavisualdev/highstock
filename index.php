@@ -126,7 +126,6 @@ app.controller('myCtrl', function($scope, $compile) {
 				requestsCompleted = options.requestsCompleted || 0;
 				callBacks = [];
 				var fireCallbacks = function() {
-					alert("we're all complete");
 					for (var i = 0; i < callBacks.length; i++) callBacks[i]();
 				};
 				if (options.singleCallback) callBacks.push(options.singleCallback);
