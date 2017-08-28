@@ -117,6 +117,7 @@ app.controller('myCtrl', function($scope, $compile) {
 
 		$scope.getData = function(company) {
 			var totalData = [];
+			console.log(company);
 			$.post( "chartdata.php", {company: company}, function(res) {
 				var data = JSON.parse(res);
 				data.map(function(d) {
