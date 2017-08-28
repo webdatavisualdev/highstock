@@ -116,16 +116,11 @@ app.controller('myCtrl', function($scope, $compile) {
 		var chartData3;
 
 		function getData(company) {
-			$.post( "chartdata.php", {company: company}, function(data) {
-				
-			})
-			.done(function(res) {
-				console.log(res);
+			$.post( "chartdata.php", {company: company}, function(res) {
 				var res = res;
 				d3.json("data/news.json", function(newsdata){
 					newsdata.sort(compareNew);
 					newsData = newsdata;
-					console.log(res);
 					var data = JSON.parse(res);
 					var totalData = [];
 					data.map(function(d) {
@@ -145,11 +140,15 @@ app.controller('myCtrl', function($scope, $compile) {
 					displayNews(startInd, newsData.length-1, -1);
 				});
 			})
+			.done(function(res) {
+			})
 			.fail(function() {
-				console.log( "error" );
 			})
 			.always(function() {
-				console.log( "finished" );
+			});
+
+			$.post( "stockvolume.php", {company: company}, function(res) {
+				console.log(res);
 			});
 		}
 		// $.ajax({
