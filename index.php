@@ -143,10 +143,22 @@ app.controller('myCtrl', function($scope, $compile) {
 					});
 				})
 				.done(function() {
+					$.post( "newsdata.php", {company: company}, function(res) {
+						var data = JSON.parse(res);
+						var newsData = [];
+						console.log(data);
+						data.map(function(d) {
+							// newsData.push({
+							// 	Ticker: "",
+							// 	date: d.
+							// });
+						});
+					});
 					d3.json("data/news.json", function(newsdata){
 						newsdata.sort(compareNew);
 						newsData = newsdata;
 						chartData3 = getChartData(totalData);
+						console.log(chartData3);
 						drawChart(chartData3);
 						var startInd = getIndex(1, "month", "1m", 0, chartData3);
 						displayNews(startInd, newsData.length-1, -1);

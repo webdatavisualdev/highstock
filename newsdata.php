@@ -1,7 +1,7 @@
 <?php
 
 	$db = new db();
-	$results = $db->query("SELECT * FROM EOD_stock_price_history LIMIT 100000", TRUE);
+	$results = $db->query("SELECT * FROM dj_csv_file WHERE djn_isin = '".$_POST["company"]."' AND do_date between '2012-1-1' AND '".$date."'", TRUE);
 
 	echo json_encode($results);
 
@@ -11,7 +11,7 @@
 
 		public function __construct() {
 
-			$this->mysqli = new mysqli("localhost", "kmpscazrwg", "5VkSQGX5Gc", "kmpscazrwg");
+			$this->mysqli = new mysqli("localhost", "zpghkvqdgf", "BMfQkz5X94", "zpghkvqdgf");
 
 			if (mysqli_connect_errno()) {
 
