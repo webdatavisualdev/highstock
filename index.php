@@ -116,10 +116,10 @@ app.controller('myCtrl', function($scope, $compile) {
 		var chartData3;
 
 		function getData(company) {
+			var totalData = [];
 			$.post( "chartdata.php", {company: company}, function(res) {
 				var res = res;
 				var data = JSON.parse(res);
-				var totalData = [];
 				data.map(function(d) {
 					totalData.push({
 						Ticker: d.isin,
