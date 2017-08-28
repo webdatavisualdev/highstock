@@ -144,9 +144,10 @@ app.controller('myCtrl', function($scope, $compile) {
 				})
 				.done(function() {
 					$.post( "newsdata.php", {company: company}, function(res) {
+						console.log(data);
+						
 						var data = JSON.parse(res);
 						var newsData = [];
-						console.log(data);
 						data.map(function(d) {
 							// newsData.push({
 							// 	Ticker: "",
