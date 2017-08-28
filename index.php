@@ -110,75 +110,77 @@ app.controller('myCtrl', function($scope, $compile) {
 	$scope.newsSections;
 	$scope.secondCategories = [];
 	$scope.showIcon = [];
+	$scope.currentCompanies = [];
 
 	$(document).ready(function(){
 		var chartData3;
 		var xmlhttp = new XMLHttpRequest();
 
+		var MyRequestsCompleted = (function() {
+			var numRequestToComplete, requestsCompleted, callBacks, singleCallBack;
 
-		// var MyRequestsCompleted = (function() {
-		// 	var numRequestToComplete, requestsCompleted, callBacks, singleCallBack;
+			return function(options) {
+				if (!options) options = {};
 
-		// 	return function(options) {
-		// 		if (!options) options = {};
+				numRequestToComplete = options.numRequest || 0;
+				requestsCompleted = options.requestsCompleted || 0;
+				callBacks = [];
+				var fireCallbacks = function() {
+					for (var i = 0; i < callBacks.length; i++) callBacks[i]();
+				};
+				if (options.singleCallback) callBacks.push(options.singleCallback);
 
-		// 		numRequestToComplete = options.numRequest || 0;
-		// 		requestsCompleted = options.requestsCompleted || 0;
-		// 		callBacks = [];
-		// 		var fireCallbacks = function() {
-		// 			for (var i = 0; i < callBacks.length; i++) callBacks[i]();
-		// 		};
-		// 		if (options.singleCallback) callBacks.push(options.singleCallback);
+				this.addCallbackToQueue = function(isComplete, callback) {
+					if (isComplete) requestsCompleted++;
+					if (callback) callBacks.push(callback);
+					if (requestsCompleted == numRequestToComplete) fireCallbacks();
+				};
+				this.requestComplete = function(isComplete) {
+					if (isComplete) requestsCompleted++;
+					if (requestsCompleted == numRequestToComplete) fireCallbacks();
+				};
+				this.setCallback = function(callback) {
+					callBacks.push(callBack);
+				};
+			};
+		})();
 
-		// 		this.addCallbackToQueue = function(isComplete, callback) {
-		// 			if (isComplete) requestsCompleted++;
-		// 			if (callback) callBacks.push(callback);
-		// 			if (requestsCompleted == numRequestToComplete) fireCallbacks();
-		// 		};
-		// 		this.requestComplete = function(isComplete) {
-		// 			if (isComplete) requestsCompleted++;
-		// 			if (requestsCompleted == numRequestToComplete) fireCallbacks();
-		// 		};
-		// 		this.setCallback = function(callback) {
-		// 			callBacks.push(callBack);
-		// 		};
-		// 	};
-		// })();
+		var requestCallback = new MyRequestsCompleted({
+			numRequest: 1
+		});
 
-		//initialize 
-		// var requestCallback = new MyRequestsCompleted({
-		// 	numRequest: 1
-		// });
-
-		//usage in request
-		// $.ajax({
-		// 	url: 'chartdata.php',
-		// 	success: function(data) {
-		// 		requestCallback.addCallbackToQueue(true, function() {
-		// 			d3.json("data/news.json", function(newsdata){
-		// 				newsdata.sort(compareNew);
-		// 				newsData = newsdata;
-		// 				var data = JSON.parse(data);
-		// 				var totalData = [];
-		// 				data.map(function(d) {
-		// 					totalData.push({
-		// 						Ticker: d.isin,
-		// 						date: d.s_timestamp,
-		// 						close: d.price,
-		// 						volumn: 0,
-		// 						sentiment: null
-		// 					});
-		// 				});
-		// 				totalData.sort(compare);
-		// 				chartData3 = getChartData(totalData);
-		// 				console.log(chartData3);
-		// 				drawChart(chartData3);
-		// 				var startInd = getIndex(1, "month", "1m", 0, chartData3);
-		// 				displayNews(startInd, newsData.length-1, -1);
-		// 			});
-		// 		});
-		// 	}
-		// });
+		function getData(company) {
+			$.ajax({
+				url: 'chartdata.php',
+				type:"GET",
+				data: {company: company},
+				success: function(data) {
+					requestCallback.addCallbackToQueue(true, function() {
+						d3.json("data/news.json", function(newsdata){
+							newsdata.sort(compareNew);
+							newsData = newsdata;
+							var data = JSON.parse(data);
+							var totalData = [];
+							data.map(function(d) {
+								totalData.push({
+									Ticker: d.isin,
+									date: d.s_timestamp,
+									close: d.price,
+									volumn: 0,
+									sentiment: null
+								});
+							});
+							totalData.sort(compare);
+							chartData3 = getChartData(totalData);
+							console.log(chartData3);
+							drawChart(chartData3);
+							var startInd = getIndex(1, "month", "1m", 0, chartData3);
+							displayNews(startInd, newsData.length-1, -1);
+						});
+					});
+				}
+			});
+		}
 		// $.ajax({
 		// 	url: 'newsdata.php',
 		// 	success: function(data) {
@@ -224,22 +226,24 @@ app.controller('myCtrl', function($scope, $compile) {
 		// 	xmlhttp.send();
 		// });
 
-		d3.json("data/data.json", function(data1){
-			d3.json("data/news.json", function(data){
-				data.sort(compareNew);
-				newsData = data;
-				data1.sort(compare);
-				chartData3 = getChartData(data1);
-				console.log(chartData3);
-				drawChart(chartData3);
-				var startInd = getIndex(1, "month", "1m", 0, chartData3);
-				displayNews(startInd, newsData.length-1, -1);
-			});
-		});		
+		// d3.json("data/data.json", function(data1){
+		// 	d3.json("data/news.json", function(data){
+		// 		data.sort(compareNew);
+		// 		newsData = data;
+		// 		data1.sort(compare);
+		// 		chartData3 = getChartData(data1);
+		// 		console.log(chartData3);
+		// 		drawChart(chartData3);
+		// 		var startInd = getIndex(1, "month", "1m", 0, chartData3);
+		// 		displayNews(startInd, newsData.length-1, -1);
+		// 	});
+		// });		
 
 		d3.csv("data/company.csv", function(data) {
 			$scope.companyData = data;
 			$scope.addTableBody("type1");
+			$scope.currentCompanies.push($scope.typeData[0]);
+			getData($scope.currentCompanies[$scope.currentCompanies.length - 1].isin);
 		});
 		d3.csv("data/news-category.csv", function(data) {
 			$scope.newsSections = data;
