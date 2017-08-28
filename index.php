@@ -403,10 +403,10 @@ app.controller('myCtrl', function($scope, $compile) {
 	$scope.selectCompany = function(index) {
 		var i = 0;
 		console.log(index);
-		$scope.getData($scope.companyData[index].isin);
 		$scope.companyData.map(function(data) {
 			if(data.type == $scope.currentType) {
 				if(i == index) {
+					$scope.getData(data.isin);
 					$(".form-control").val(data.company);
 				}
 				i ++;
