@@ -1,10 +1,8 @@
 <?php
 
 	$date = date("y-m-d");
-	echo $date;
 	$db = new db();
-	$results = $db->query("SELECT * FROM EOD_stock_price_history WHERE isin = '".$_GET["company"]."' AND do_date between '2012-1-1' AND '".$date."'", TRUE);
-
+	$results = $db->query("SELECT * FROM EOD_stock_price_history WHERE isin = '".$_POST["company"]."' AND do_date between '2012-1-1' AND '".$date."'", TRUE);
 	echo json_encode($results);
 
 	class db {
