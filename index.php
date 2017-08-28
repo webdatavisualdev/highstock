@@ -130,7 +130,6 @@ app.controller('myCtrl', function($scope, $compile) {
 					});
 				});
 				totalData.sort(compare);
-				chartData3 = getChartData(totalData);
 			})
 			.done(function() {
 				$.post( "stockvolume.php", {company: company}, function(res) {
@@ -147,6 +146,7 @@ app.controller('myCtrl', function($scope, $compile) {
 					d3.json("data/news.json", function(newsdata){
 						newsdata.sort(compareNew);
 						newsData = newsdata;
+						chartData3 = getChartData(totalData);
 						drawChart(chartData3);
 						var startInd = getIndex(1, "month", "1m", 0, chartData3);
 						displayNews(startInd, newsData.length-1, -1);
