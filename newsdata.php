@@ -1,5 +1,6 @@
 <?php
-
+	$date = date("y-m-d");
+	
 	$db = new db();
 	$results = $db->query("SELECT * FROM dj_csv_file WHERE djn_isin = '".$_POST["company"]."' AND do_date between '2012-1-1' AND '".$date."'", TRUE);
 
