@@ -132,6 +132,7 @@ app.controller('myCtrl', function($scope, $compile) {
 			})
 			.done(function() {
 				$.post( "sentiment.php", {company: company}, function(res) {
+					console.log(res);
 					var data = JSON.parse(res);
 					data.map(function(d) {
 						totalData.push({
