@@ -115,7 +115,7 @@ app.controller('myCtrl', function($scope, $compile) {
 	$(document).ready(function(){
 		var chartData3;
 
-		function getData(company) {
+		$scope.getData = function(company) {
 			var totalData = [];
 			$.post( "chartdata.php", {company: company}, function(res) {
 				var res = res;
@@ -233,7 +233,7 @@ app.controller('myCtrl', function($scope, $compile) {
 			$scope.companyData = data;
 			$scope.addTableBody("type1");
 			$scope.currentCompanies.push($scope.typeData[0]);
-			getData($scope.currentCompanies[$scope.currentCompanies.length - 1].isin);
+			$scope.getData($scope.currentCompanies[$scope.currentCompanies.length - 1].isin);
 		});
 		d3.csv("data/news-category.csv", function(data) {
 			$scope.newsSections = data;
@@ -387,6 +387,7 @@ app.controller('myCtrl', function($scope, $compile) {
 	$scope.selectCompany = function(index) {
 		var i = 0;
 		console.log(index);
+		$scope.getData($scope.companyData[0].isin);
 		$scope.companyData.map(function(data) {
 			if(data.type == $scope.currentType) {
 				if(i == index) {
