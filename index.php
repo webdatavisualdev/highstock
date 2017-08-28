@@ -118,37 +118,44 @@ app.controller('myCtrl', function($scope, $compile) {
 		function getData(company) {
 			$.post( "chartdata.php", {company: company}, function(res) {
 				var res = res;
-				d3.json("data/news.json", function(newsdata){
-					newsdata.sort(compareNew);
-					newsData = newsdata;
+				var data = JSON.parse(res);
+				var totalData = [];
+				data.map(function(d) {
+					totalData.push({
+						Ticker: d.isin,
+						date: d.s_timestamp,
+						close: d.price,
+						volumn: 0,
+						sentiment: null
+					});
+				});
+				totalData.sort(compare);
+				chartData3 = getChartData(totalData);
+			})
+			.done(function() {
+				$.post( "stockvolume.php", {company: company}, function(res) {
 					var data = JSON.parse(res);
-					var totalData = [];
-					data.map(function(d) {
-						totalData.push({
-							Ticker: d.isin,
-							date: d.s_timestamp,
-							close: d.price,
-							volumn: 0,
-							sentiment: null
+					totalData.map(function(total) {
+						data.map(function(d) {
+							if(total.date == d.s_timestamp) {
+								total.volume = d.volume;
+							}
 						});
 					});
-					totalData.sort(compare);
-					chartData3 = getChartData(totalData);
-					console.log(chartData3);
-					drawChart(chartData3);
-					var startInd = getIndex(1, "month", "1m", 0, chartData3);
-					displayNews(startInd, newsData.length-1, -1);
+				})
+				.done(function() {
+					d3.json("data/news.json", function(newsdata){
+						newsdata.sort(compareNew);
+						newsData = newsdata;
+						drawChart(chartData3);
+						var startInd = getIndex(1, "month", "1m", 0, chartData3);
+						displayNews(startInd, newsData.length-1, -1);
+					});
 				});
-			})
-			.done(function(res) {
 			})
 			.fail(function() {
 			})
 			.always(function() {
-			});
-
-			$.post( "stockvolume.php", {company: company}, function(res) {
-				console.log(res);
 			});
 		}
 		// $.ajax({
