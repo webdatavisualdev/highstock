@@ -119,12 +119,14 @@ app.controller('myCtrl', function($scope, $compile) {
 			$.post( "chartdata.php", {company: company}, function(data) {
 				
 			})
-			.done(function(data) {
+			.done(function(res) {
+				console.log(res);
+				var res = res;
 				d3.json("data/news.json", function(newsdata){
 					newsdata.sort(compareNew);
 					newsData = newsdata;
-					console.log(data);
-					var data = JSON.parse(data);
+					console.log(res);
+					var data = JSON.parse(res);
 					var totalData = [];
 					data.map(function(d) {
 						totalData.push({
