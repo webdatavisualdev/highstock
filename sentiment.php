@@ -1,7 +1,7 @@
 <?php
 
 	$db = new db();
-	$results = $db->query("SELECT * FROM sentiments LIMIT 100000", TRUE);
+	$results = $db->query("SELECT * FROM sentiments WHERE isin = '".$_POST["company"]."' AND do_date between '2012-1-1' AND '".$date."'", TRUE);
 
 	echo json_encode($results);
 

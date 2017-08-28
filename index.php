@@ -118,7 +118,6 @@ app.controller('myCtrl', function($scope, $compile) {
 		$scope.getData = function(company) {
 			var totalData = [];
 			$.post( "chartdata.php", {company: company}, function(res) {
-				var res = res;
 				var data = JSON.parse(res);
 				data.map(function(d) {
 					totalData.push({
@@ -132,37 +131,52 @@ app.controller('myCtrl', function($scope, $compile) {
 				totalData.sort(compare);
 			})
 			.done(function() {
-				$.post( "stockvolume.php", {company: company}, function(res) {
+				$.post( "sentiment.php", {company: company}, function(res) {
 					var data = JSON.parse(res);
-					totalData.map(function(total) {
-						data.map(function(d) {
-							if(total.date == d.s_timestamp) {
-								total.volume = d.volume;
-							}
+					data.map(function(d) {
+						totalData.push({
+							Ticker: d.isin,
+							date: d.s_timestamp,
+							close: null,
+							volumn: null,
+							sentiment: d.price
 						});
 					});
+					totalData.sort(compare);
 				})
 				.done(function() {
-					$.post( "newsdata.php", {company: company}, function(res) {
-						console.log(data);
-						
+					$.post( "stockvolume.php", {company: company}, function(res) {
 						var data = JSON.parse(res);
-						var newsData = [];
-						data.map(function(d) {
-							// newsData.push({
-							// 	Ticker: "",
-							// 	date: d.
-							// });
+						totalData.map(function(total) {
+							data.map(function(d) {
+								if(total.date == d.s_timestamp) {
+									total.volume = d.volume;
+								}
+							});
 						});
-					});
-					d3.json("data/news.json", function(newsdata){
-						newsdata.sort(compareNew);
-						newsData = newsdata;
-						chartData3 = getChartData(totalData);
-						console.log(chartData3);
-						drawChart(chartData3);
-						var startInd = getIndex(1, "month", "1m", 0, chartData3);
-						displayNews(startInd, newsData.length-1, -1);
+					})
+					.done(function() {
+						$.post( "newsdata.php", {company: company}, function(res) {
+							console.log(data);
+							
+							var data = JSON.parse(res);
+							var newsData = [];
+							data.map(function(d) {
+								// newsData.push({
+								// 	Ticker: "",
+								// 	date: d.
+								// });
+							});
+						});
+						d3.json("data/news.json", function(newsdata){
+							newsdata.sort(compareNew);
+							newsData = newsdata;
+							chartData3 = getChartData(totalData);
+							console.log(chartData3);
+							drawChart(chartData3);
+							var startInd = getIndex(1, "month", "1m", 0, chartData3);
+							displayNews(startInd, newsData.length-1, -1);
+						});
 					});
 				});
 			})
