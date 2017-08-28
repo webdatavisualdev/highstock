@@ -117,9 +117,13 @@ app.controller('myCtrl', function($scope, $compile) {
 
 		function getData(company) {
 			$.post( "chartdata.php", {company: company}, function(data) {
+				
+			})
+			.done(function(data) {
 				d3.json("data/news.json", function(newsdata){
 					newsdata.sort(compareNew);
 					newsData = newsdata;
+					console.log(data);
 					var data = JSON.parse(data);
 					var totalData = [];
 					data.map(function(d) {
@@ -138,9 +142,6 @@ app.controller('myCtrl', function($scope, $compile) {
 					var startInd = getIndex(1, "month", "1m", 0, chartData3);
 					displayNews(startInd, newsData.length-1, -1);
 				});
-			})
-			.done(function(data) {
-				console.log( "second success", data );
 			})
 			.fail(function() {
 				console.log( "error" );
