@@ -126,10 +126,11 @@ app.controller('myCtrl', function($scope, $compile) {
 						Ticker: d.isin,
 						date: d.s_timestamp,
 						close: d.price,
-						volumn: 0,
+						volumn: d.volume,
 						sentiment: null
 					});
 				});
+				console.log(res);
 			});
 
 			$.post( "newsdata.php", {company: company}, function(res) {
@@ -142,10 +143,10 @@ app.controller('myCtrl', function($scope, $compile) {
 					var day = dateStr.substring(6, 8);
 					var date = month + "/" + day + "/" + year;
 
-					var hour = dateStr.substring(9, 11);
+					var hour = parseInt(dateStr.substring(9, 11));
 					var minute = dateStr.substring(11, 13);
 					var second = dateStr.substring(13, 15);
-					var time = hour > 12 ? hour - 12 : hour + ":" + minute + ":" + second + " " + hour > 12 ? "PM" : "AM";
+					var time = (hour > 12 ? hour - 12 : hour) + ":" + minute + ":" + second + " " + (hour > 12 ? "PM" : "AM");
 
 					newsData.push({
 						Ticker: d.symbol,
