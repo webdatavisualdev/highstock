@@ -119,6 +119,7 @@ app.controller('myCtrl', function($scope, $compile) {
 			var totalData = [];
 			var sentiments = [];
 			$.post( "chartdata.php", {company: company}, function(res) {
+				var data = JSON.parse(res);
 				data.map(function(d) {
 					totalData.push({
 						Ticker: d.isin,
@@ -131,6 +132,8 @@ app.controller('myCtrl', function($scope, $compile) {
 			});
 
 			$.post( "newsdata.php", {company: company}, function(res) {
+				var data = JSON.parse(res);
+
 				var year = startDate.substring(0, 4);
 				var month = startDate.substring(4, 6);
 				var day = startDate.substring(6, 8);
@@ -141,7 +144,7 @@ app.controller('myCtrl', function($scope, $compile) {
 				var second = startDate.substring(13, 15);
 				var time = hour > 12 ? hour - 12 : hour + ":" + minute + ":" + second + " " + hour > 12 ? "PM" : "AM";
 
-				res.map(function(d) {
+				data.map(function(d) {
 					newsData.push({
 						Ticker: d.symbol,
 						date: date,
@@ -170,7 +173,7 @@ app.controller('myCtrl', function($scope, $compile) {
 			})			
 
 			$scope.timer = setInterval(function(){
-				console.log(totalData.length, sentiments.length, newsData.length);
+				console.log(totalData, sentiments, newsData);
 				if(totalData.length >= 0 && sentiments.length >= 0 && newsData.length >= 0) {
 					console.log(newsData);
 					totalData.push.apply(totalData, sentiment);
