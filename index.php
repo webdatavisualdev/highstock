@@ -134,17 +134,18 @@ app.controller('myCtrl', function($scope, $compile) {
 			$.post( "newsdata.php", {company: company}, function(res) {
 				var data = JSON.parse(res);
 
-				var year = startDate.substring(0, 4);
-				var month = startDate.substring(4, 6);
-				var day = startDate.substring(6, 8);
-				var date = month + "/" + day + "/" + year;
-
-				var hour = startDate.substring(9, 11);
-				var minute = startDate.substring(11, 13);
-				var second = startDate.substring(13, 15);
-				var time = hour > 12 ? hour - 12 : hour + ":" + minute + ":" + second + " " + hour > 12 ? "PM" : "AM";
-
 				data.map(function(d) {
+					var dateStr = d.display_date;
+					var year = dateStr.substring(0, 4);
+					var month = dateStr.substring(4, 6);
+					var day = dateStr.substring(6, 8);
+					var date = month + "/" + day + "/" + year;
+
+					var hour = dateStr.substring(9, 11);
+					var minute = dateStr.substring(11, 13);
+					var second = dateStr.substring(13, 15);
+					var time = hour > 12 ? hour - 12 : hour + ":" + minute + ":" + second + " " + hour > 12 ? "PM" : "AM";
+
 					newsData.push({
 						Ticker: d.symbol,
 						date: date,
