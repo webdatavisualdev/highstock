@@ -2,7 +2,7 @@
 	$date = date("y-m-d");
 	
 	$db = new db();
-	$results = $db->query("SELECT * FROM dj_csv_file WHERE djn_isin = '".$_POST["company"]."' AND do_date between '2012-1-1' AND '".$date."'", TRUE);
+	$results = $db->query("select dj_news.id, dj_news_isin.code as code,dj_news.headline, dj_news.lexicon, dj_news.hot,dj_news.display_date ,companies.name, companies.symbol from dj_news_isin left join dj_news on dj_news.id=dj_news_isin.dj_news_id left join companies on dj_news_isin.code=companies.isin where dj_news_isin.code= '".$_POST["company"]."' and dj_news.hot='Y' order by dj_news.display_date desc", TRUE);
 
 	echo json_encode($results);
 
