@@ -177,13 +177,13 @@ app.controller('myCtrl', function($scope, $compile) {
 			$scope.timer = setInterval(function(){
 				console.log(totalData, sentiments, newsData);
 				if(totalData.length >= 0 && sentiments.length >= 0 && newsData.length >= 0) {
+					clearInterval($scope.timer);
 					totalData.push.apply(totalData, sentiments);
 					totalData.sort(compare);
 					chartData3 = getChartData(totalData);
 					drawChart(chartData3);
 					var startInd = getIndex(1, "month", "1m", 0, chartData3);
 					displayNews(startInd, newsData.length-1, -1);
-					clearInterval($scope.timer);
 				}
 			}, 1000);
 		}	
