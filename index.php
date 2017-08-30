@@ -118,6 +118,7 @@ app.controller('myCtrl', function($scope, $compile) {
 		$scope.getData = function(company) {
 			var totalData = [];
 			var sentiments = [];
+			var newsData = [];
 			$.post( "chartdata.php", {company: company}, function(res) {
 				var data = JSON.parse(res);
 				data.map(function(d) {
@@ -176,7 +177,6 @@ app.controller('myCtrl', function($scope, $compile) {
 			$scope.timer = setInterval(function(){
 				console.log(totalData, sentiments, newsData);
 				if(totalData.length >= 0 && sentiments.length >= 0 && newsData.length >= 0) {
-					console.log(newsData);
 					totalData.push.apply(totalData, sentiment);
 					totalData.sort(compare);
 					chartData3 = getChartData(totalData);
