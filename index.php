@@ -186,64 +186,7 @@ app.controller('myCtrl', function($scope, $compile) {
 					clearInterval($scope.timer);
 				}
 			}, 1000);
-		}
-		// $.ajax({
-		// 	url: 'newsdata.php',
-		// 	success: function(data) {
-		// 		requestCallback.addCallbackToQueue(true, function() {
-		// 			console.log(data);
-		// 		});
-		// 	}
-		// });
-		// $.ajax({
-		// 	url: 'sentiment.php',
-		// 	success: function(data) {
-		// 		requestCallback.addCallbackToQueue(true, function() {
-		// 			console.log(data);
-		// 		});
-		// 	}
-		// });
-		//makeGrouping();
-		// d3.json("data/news.json", function(data){
-		// 	data.sort(compareNew);
-		// 	newsData = data;
-		// 	xmlhttp.onreadystatechange = function() {
-		// 		if (this.readyState == 4 && this.status == 200) {
-		// 			var data = JSON.parse(this.responseText);
-		// 			var totalData = [];
-		// 			data.map(function(d) {
-		// 				totalData.push({
-		// 					Ticker: d.ticker,
-		// 					date: d.do_datetime,
-		// 					close: d.close,
-		// 					volumn: d.volume,
-		// 					sentiment: null
-		// 				});
-		// 			});
-		// 			totalData.sort(compare);
-		// 			chartData3 = getChartData(totalData);
-		// 			console.log(chartData3);
-		// 			drawChart(chartData3);
-		// 			var startInd = getIndex(1, "month", "1m", 0, chartData3);
-		// 			displayNews(startInd, newsData.length-1, -1);
-		// 		}
-		// 	};
-		// 	xmlhttp.open("GET", "chartdata.php", true);
-		// 	xmlhttp.send();
-		// });
-
-		// d3.json("data/data.json", function(data1){
-		// 	d3.json("data/news.json", function(data){
-		// 		data.sort(compareNew);
-		// 		newsData = data;
-		// 		data1.sort(compare);
-		// 		chartData3 = getChartData(data1);
-		// 		console.log(chartData3);
-		// 		drawChart(chartData3);
-		// 		var startInd = getIndex(1, "month", "1m", 0, chartData3);
-		// 		displayNews(startInd, newsData.length-1, -1);
-		// 	});
-		// });		
+		}	
 
 		d3.csv("data/company.csv", function(data) {
 			$scope.companyData = data;
