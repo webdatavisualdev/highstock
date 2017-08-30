@@ -119,7 +119,6 @@ app.controller('myCtrl', function($scope, $compile) {
 			var totalData = [];
 			console.log(company);
 			$.post( "chartdata.php", {company: company}, function(res) {
-				var data = JSON.parse(res);
 				data.map(function(d) {
 					totalData.push({
 						Ticker: d.isin,
@@ -133,7 +132,6 @@ app.controller('myCtrl', function($scope, $compile) {
 			})
 			.done(function() {
 				$.post( "sentiment.php", {company: company}, function(res) {
-					console.log(res);
 					var data = JSON.parse(res);
 					data.map(function(d) {
 						totalData.push({
@@ -158,18 +156,6 @@ app.controller('myCtrl', function($scope, $compile) {
 						});
 					})
 					.done(function() {
-						$.post( "newsdata.php", {company: company}, function(res) {
-							console.log(res);
-							
-							var data = JSON.parse(res);
-							var newsData = [];
-							data.map(function(d) {
-								// newsData.push({
-								// 	Ticker: "",
-								// 	date: d.
-								// });
-							});
-						});
 						d3.json("data/news.json", function(newsdata){
 							newsdata.sort(compareNew);
 							newsData = newsdata;
@@ -185,6 +171,18 @@ app.controller('myCtrl', function($scope, $compile) {
 			.fail(function() {
 			})
 			.always(function() {
+			});
+			$.post( "newsdata.php", {company: company}, function(res) {
+				console.log(res);
+				
+				var data = JSON.parse(res);
+				var newsData = [];
+				data.map(function(d) {
+					// newsData.push({
+					// 	Ticker: "",
+					// 	date: d.
+					// });
+				});
 			});
 		}
 		// $.ajax({
