@@ -117,7 +117,7 @@ app.controller('myCtrl', function($scope, $compile) {
 
 		$scope.getData = function(company) {
 			var totalData = [];
-			console.log(company);
+			var sentiments = [];
 			$.post( "chartdata.php", {company: company}, function(res) {
 				data.map(function(d) {
 					totalData.push({
@@ -128,62 +128,60 @@ app.controller('myCtrl', function($scope, $compile) {
 						sentiment: null
 					});
 				});
-				totalData.sort(compare);
-			})
-			.done(function() {
-				$.post( "sentiment.php", {company: company}, function(res) {
-					var data = JSON.parse(res);
-					data.map(function(d) {
-						totalData.push({
-							Ticker: d.isin,
-							date: d.s_timestamp,
-							close: null,
-							volumn: null,
-							sentiment: d.price
-						});
-					});
-					totalData.sort(compare);
-				})
-				.done(function() {
-					$.post( "stockvolume.php", {company: company}, function(res) {
-						var data = JSON.parse(res);
-						totalData.map(function(total) {
-							data.map(function(d) {
-								if(total.date == d.s_timestamp) {
-									total.volume = d.volume;
-								}
-							});
-						});
-					})
-					.done(function() {
-						d3.json("data/news.json", function(newsdata){
-							newsdata.sort(compareNew);
-							newsData = newsdata;
-							chartData3 = getChartData(totalData);
-							console.log(chartData3);
-							drawChart(chartData3);
-							var startInd = getIndex(1, "month", "1m", 0, chartData3);
-							displayNews(startInd, newsData.length-1, -1);
-						});
-					});
-				});
-			})
-			.fail(function() {
-			})
-			.always(function() {
 			});
+
 			$.post( "newsdata.php", {company: company}, function(res) {
-				console.log(res);
-				
-				var data = JSON.parse(res);
-				var newsData = [];
-				data.map(function(d) {
-					// newsData.push({
-					// 	Ticker: "",
-					// 	date: d.
-					// });
+				var year = startDate.substring(0, 4);
+				var month = startDate.substring(4, 6);
+				var day = startDate.substring(6, 8);
+				var date = month + "/" + day + "/" + year;
+
+				var hour = startDate.substring(9, 11);
+				var minute = startDate.substring(11, 13);
+				var second = startDate.substring(13, 15);
+				var time = hour > 12 ? hour - 12 : hour + ":" + minute + ":" + second + " " + hour > 12 ? "PM" : "AM";
+
+				res.map(function(d) {
+					newsData.push({
+						Ticker: d.symbol,
+						date: date,
+						close: '',
+						volume: '',
+						sentiment: '',
+						headline: d.headline,
+						News_Body: d.lexicon,
+						Time: time,
+						seq:d.id
+					});
 				});
+				newsData.sort(compareNew);
 			});
+			$.post( "sentiment.php", {company: company}, function(res) {
+				var data = JSON.parse(res);
+				data.map(function(d) {
+					sentiments.push({
+						Ticker: d.isin,
+						date: d.s_timestamp,
+						close: null,
+						volumn: null,
+						sentiment: d.price
+					});
+				});
+			})			
+
+			$scope.timer = setInterval(function(){
+				console.log(totalData.length, sentiments.length, newsData.length);
+				if(totalData.length >= 0 && sentiments.length >= 0 && newsData.length >= 0) {
+					console.log(newsData);
+					totalData.push.apply(totalData, sentiment);
+					totalData.sort(compare);
+					chartData3 = getChartData(totalData);
+					drawChart(chartData3);
+					var startInd = getIndex(1, "month", "1m", 0, chartData3);
+					displayNews(startInd, newsData.length-1, -1);
+					clearInterval($scope.timer);
+				}
+			}, 1000);
 		}
 		// $.ajax({
 		// 	url: 'newsdata.php',

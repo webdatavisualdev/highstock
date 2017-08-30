@@ -2,7 +2,7 @@
 
 	$date = date("y-m-d");
 	$db = new db();
-	$results = $db->query("SELECT * FROM EOD_stock_price_history WHERE isin = '".$_POST["company"]."' AND do_date between '2012-1-1' AND '".$date."'", TRUE);
+	$results = $db->query("select stock_volumn.isin, stock_volumn.s_timestamp, EOD_stock_price_history.price, stock_volumn.price as volume from EOD_stock_price_history left join stock_volumn where stock_volumn.isin = '".$_POST["company"]."' and stock_volumn.do_date between '2012-1-1' and '".$date."' orderby stock_volumn.do_date", TRUE);
 	echo json_encode($results);
 
 	class db {
