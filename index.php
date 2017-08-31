@@ -179,7 +179,9 @@ app.controller('myCtrl', function($scope, $compile) {
 				console.log(totalData, sentiments, newsData);
 				if(totalData.length >= 0 && sentiments.length >= 0 && newsData.length >= 0) {
 					clearInterval($scope.timer);
-					totalData.push.apply(totalData, sentiments);
+					sentiments.map(function(d) {
+						totalData.push(d);
+					});
 					totalData.sort(compare);
 					chartData3 = getChartData(totalData);
 					drawChart(chartData3);
