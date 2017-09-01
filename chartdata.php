@@ -2,7 +2,7 @@
 
 	$date = date("y-m-d");
 	$db = new db();
-	$results = $db->query("select stock_volumn.isin, stock_volumn.s_timestamp, EOD_stock_price_history.price as price, stock_volumn.volume from EOD_stock_price_history left join stock_volumn on EOD_stock_price_history.isin=stock_volumn.isin where EOD_stock_price_history.isin='".$_POST["company"]."' order by EOD_stock_price_history.do_date limit 10000", TRUE);
+	$results = $db->query("select stock_volumn.isin, stock_volumn.s_timestamp, EOD_stock_price_history.price as price, stock_volumn.volume from EOD_stock_price_history left join stock_volumn on EOD_stock_price_history.isin=stock_volumn.isin where EOD_stock_price_history.isin='".$_POST["company"]."' order by EOD_stock_price_history.do_date limit 100000", TRUE);
 	echo json_encode($results);
 
 	class db {

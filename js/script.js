@@ -36,6 +36,7 @@ function drawChart(chartData, newsData){
             [1]
         ]]
     };
+    var newsData = newsData;
 var seriesData = [{
                 name: 'Intel Corp (INTC)',
                 type: 'area',
@@ -706,6 +707,7 @@ function compareNew(data1, data2){
 }
 
 function getChartData(data, newsData){
+    var newsData = newsData;
     dateGroupIndex = []
   var valueData = [], volumeData = [], sentimentData = [], 
         flagIntraData = [], flagTmpIntraData = [], valueIntraData = [], volumeIntraData = [], flagData = [],
@@ -799,6 +801,7 @@ function getChartData(data, newsData){
   return [valueData,volumeData,sentimentData,baseFlagData,valueIntraData,volumeIntraData,flagData,flagIntraData];
 }
 function displayNews(startInd, endInd, curInd, startFlag, newsData){
+    var newsData = newsData;
     if(startInd == -1) return;
     $('#news .content').html('');
     var i;
