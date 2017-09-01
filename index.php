@@ -117,30 +117,20 @@ app.controller('myCtrl', function($scope, $compile) {
 
 		$scope.getData = function(company) {
 			var totalData = [];
-			var stockVolume = [];
 			var sentiments = [];
 			var newsData = [];
-			$.post( "stockprice.php", {company: company}, function(res) {
+			$.post( "chartdata.php", {company: company}, function(res) {
 				var data = JSON.parse(res);
 				data.map(function(d) {
 					totalData.push({
 						Ticker: d.isin,
 						date: d.s_timestamp,
 						close: d.price,
-						volumn: 0,
+						volumn: d.volume,
 						sentiment: null
 					});
 				});
-			});
-
-			$.post( "stockvolume.php", {company: company}, function(res) {
-				var data = JSON.parse(res);
-				data.map(function(d) {
-					stockVolume.push({
-						date: d.s_timestamp,
-						volumn: d.volume
-					});
-				});
+				console.log(data);
 			});
 
 			$.post( "newsdata.php", {company: company}, function(res) {
@@ -171,6 +161,7 @@ app.controller('myCtrl', function($scope, $compile) {
 					});
 				});
 				newsData.sort(compareNew);
+				console.log(newsData)
 			});
 			$.post( "sentiment.php", {company: company}, function(res) {
 				var data = JSON.parse(res);
@@ -183,29 +174,23 @@ app.controller('myCtrl', function($scope, $compile) {
 						sentiment: d.price
 					});
 				});
+				console.log(sentiments)
 			})			
 
-			$scope.timer = setTimeout(function(){
-				if(totalData.length >= 0 && stockVolume.length >= 0 && sentiments.length >= 0 && newsData.length >= 0) {
-					console.log(totalData, stockVolume, newsData, sentiments)
-					// clearInterval($scope.timer);
-					totalData.map(function(t) {
-						stockVolume.map(function(s) {
-							if(t.date == s.date) {
-								t.volume = s.volume;
-							}
-						});
-					});
-					sentiments.map(function(d) {
-						totalData.push(d);
-					});
-					totalData.sort(compare);
-					chartData3 = getChartData(totalData);
-					drawChart(chartData3);
-					var startInd = getIndex(1, "month", "1m", 0, chartData3);
-					displayNews(startInd, newsData.length-1, -1);
-				}
-			}, 1000);
+			// $scope.timer = setInterval(function(){
+			// 	console.log(totalData, sentiments, newsData);
+			// 	if(totalData.length >= 0 && sentiments.length >= 0 && newsData.length >= 0) {
+			// 		clearInterval($scope.timer);
+			// 		sentiments.map(function(d) {
+			// 			totalData.push(d);
+			// 		});
+			// 		totalData.sort(compare);
+			// 		chartData3 = getChartData(totalData);
+			// 		drawChart(chartData3);
+			// 		var startInd = getIndex(1, "month", "1m", 0, chartData3);
+			// 		displayNews(startInd, newsData.length-1, -1);
+			// 	}
+			// }, 1000);
 		}	
 
 		d3.csv("data/company.csv", function(data) {
