@@ -88,7 +88,7 @@
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
-	var dateGroupIndex, newsData, chart;
+	var dateGroupIndex, chart;
 	var maxDate = 0;
 	var displayCount = 500;
 	var groupingArryIndex = [];
@@ -160,6 +160,7 @@ app.controller('myCtrl', function($scope, $compile) {
 					});
 				});
 				newsData.sort(compareNew);
+				console.log(newsData);
 			});
 			$.post( "sentiment.php", {company: company}, function(res) {
 				var data = JSON.parse(res);
