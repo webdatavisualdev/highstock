@@ -131,6 +131,8 @@ app.controller('myCtrl', function($scope, $compile) {
 					});
 				});
 				console.log(res);
+			}).done(function(res) {
+				console.log(res)
 			});
 
 			$.post( "newsdata.php", {company: company}, function(res) {
