@@ -176,6 +176,7 @@ app.controller('myCtrl', function($scope, $compile) {
 
 			$scope.timer = setInterval(function(){
 				if(totalData.length > 0 && sentiments.length > 0 && newsData.length > 0) {
+					console.log(totalData, sentiments)
 					clearInterval($scope.timer);
 					sentiments.map(function(d) {
 						totalData.push(d);
