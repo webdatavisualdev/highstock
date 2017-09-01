@@ -117,22 +117,30 @@ app.controller('myCtrl', function($scope, $compile) {
 
 		$scope.getData = function(company) {
 			var totalData = [];
+			var stockVolume = [];
 			var sentiments = [];
 			var newsData = [];
-			$.post( "chartdata.php", {company: company}, function(res) {
+			$.post( "stockprice.php", {company: company}, function(res) {
 				var data = JSON.parse(res);
 				data.map(function(d) {
 					totalData.push({
 						Ticker: d.isin,
 						date: d.s_timestamp,
 						close: d.price,
-						volumn: d.volume,
+						volumn: 0,
 						sentiment: null
 					});
 				});
-				console.log(res);
-			}).done(function(res) {
-				console.log(res)
+			});
+
+			$.post( "stockvolume.php", {company: company}, function(res) {
+				var data = JSON.parse(res);
+				data.map(function(d) {
+					stockVolume.push({
+						date: d.s_timestamp,
+						volumn: d.volume
+					});
+				});
 			});
 
 			$.post( "newsdata.php", {company: company}, function(res) {
@@ -178,9 +186,15 @@ app.controller('myCtrl', function($scope, $compile) {
 			})			
 
 			$scope.timer = setInterval(function(){
-				console.log(totalData, sentiments, newsData);
-				if(totalData.length >= 0 && sentiments.length >= 0 && newsData.length >= 0) {
+				if(totalData.length >= 0 && stockVolume.length >= 0 && sentiments.length >= 0 && newsData.length >= 0) {
 					clearInterval($scope.timer);
+					totalData.map(function(t) {
+						stockVolume.map(function(s) {
+							if(t.date == s.date) {
+								t.volume = s.volume;
+							}
+						});
+					});
 					sentiments.map(function(d) {
 						totalData.push(d);
 					});
@@ -189,6 +203,7 @@ app.controller('myCtrl', function($scope, $compile) {
 					drawChart(chartData3);
 					var startInd = getIndex(1, "month", "1m", 0, chartData3);
 					displayNews(startInd, newsData.length-1, -1);
+					console.log(totalData, sentiments, newsData)
 				}
 			}, 1000);
 		}	
