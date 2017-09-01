@@ -25,8 +25,7 @@ Date.prototype.addMonths = function (value) {
     this.setDate(Math.min(n, this.getDaysInMonth()));
     return this;
 };
-function drawChart(chartData, news){
-    newsData = news;
+function drawChart(chartData, newsData){
     groupingUnit = {
         approximation: "open",
         enabled: true,
@@ -799,7 +798,7 @@ function getChartData(data){
   }
   return [valueData,volumeData,sentimentData,baseFlagData,valueIntraData,volumeIntraData,flagData,flagIntraData];
 }
-function displayNews(startInd, endInd, curInd, startFlag){
+function displayNews(startInd, endInd, curInd, startFlag, newsData){
     if(startInd == -1) return;
     $('#news .content').html('');
     var i;

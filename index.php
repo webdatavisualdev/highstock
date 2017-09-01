@@ -175,6 +175,7 @@ app.controller('myCtrl', function($scope, $compile) {
 			})			
 
 			$scope.timer = setInterval(function(){
+				console.log(totalData, sentiments, newsData)
 				if(totalData.length > 0 && sentiments.length > 0 && newsData.length > 0) {
 					console.log(totalData, sentiments, newsData)
 					clearInterval($scope.timer);
@@ -185,7 +186,7 @@ app.controller('myCtrl', function($scope, $compile) {
 					chartData3 = getChartData(totalData);
 					drawChart(chartData3, newsData);
 					var startInd = getIndex(1, "month", "1m", 0, chartData3);
-					displayNews(startInd, newsData.length-1, -1);
+					displayNews(startInd, newsData.length-1, -1, newsData);
 				}
 			}, 1000);
 		}	
