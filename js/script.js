@@ -25,7 +25,8 @@ Date.prototype.addMonths = function (value) {
     this.setDate(Math.min(n, this.getDaysInMonth()));
     return this;
 };
-function drawChart(chartData){
+function drawChart(chartData, news){
+    newsData = news;
     groupingUnit = {
         approximation: "open",
         enabled: true,

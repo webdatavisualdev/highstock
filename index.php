@@ -118,6 +118,7 @@ app.controller('myCtrl', function($scope, $compile) {
 		$scope.getData = function(company) {
 			var totalData = [];
 			var sentiments = [];
+			var newsData = [];
 			$.post( "chartdata.php", {company: company}, function(res) {
 				var data = JSON.parse(res);
 				data.map(function(d) {
@@ -182,7 +183,7 @@ app.controller('myCtrl', function($scope, $compile) {
 					});
 					totalData.sort(compare);
 					chartData3 = getChartData(totalData);
-					drawChart(chartData3);
+					drawChart(chartData3, newsData);
 					var startInd = getIndex(1, "month", "1m", 0, chartData3);
 					displayNews(startInd, newsData.length-1, -1);
 				}
