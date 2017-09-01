@@ -705,7 +705,7 @@ function compareNew(data1, data2){
     return 0;
 }
 
-function getChartData(data){
+function getChartData(data, newsData){
     dateGroupIndex = []
   var valueData = [], volumeData = [], sentimentData = [], 
         flagIntraData = [], flagTmpIntraData = [], valueIntraData = [], volumeIntraData = [], flagData = [],

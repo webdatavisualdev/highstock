@@ -184,7 +184,7 @@ app.controller('myCtrl', function($scope, $compile) {
 						totalData.push(d);
 					});
 					totalData.sort(compare);
-					chartData3 = getChartData(totalData);
+					chartData3 = getChartData(totalData, newsData);
 					drawChart(chartData3, newsData);
 					var startInd = getIndex(1, "month", "1m", 0, chartData3);
 					displayNews(startInd, newsData.length-1, -1, newsData);
