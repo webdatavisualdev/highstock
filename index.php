@@ -119,78 +119,84 @@ app.controller('myCtrl', function($scope, $compile) {
 			var totalData = [];
 			var sentiments = [];
 			var newsData = [];
-			$.post( "chartdata.php", {company: company}, function(res) {
-				var data = JSON.parse(res);
-				data.map(function(d) {
-					totalData.push({
-						Ticker: d.isin,
-						date: d.s_timestamp,
-						close: d.price,
-						volumn: d.volume,
-						sentiment: null
-					});
-				});
+			// $.post( "chartdata.php", {company: company}, function(res) {
+			// 	var data = JSON.parse(res);
+			// 	data.map(function(d) {
+			// 		totalData.push({
+			// 			Ticker: d.isin,
+			// 			date: d.s_timestamp,
+			// 			close: d.price,
+			// 			volumn: d.volume,
+			// 			sentiment: null
+			// 		});
+			// 	});
+			// });
+
+			// $.post( "newsdata.php", {company: company}, function(res) {
+			// 	var data = JSON.parse(res);
+
+			// 	data.map(function(d) {
+			// 		var dateStr = d.display_date;
+			// 		var year = dateStr.substring(0, 4);
+			// 		var month = dateStr.substring(4, 6);
+			// 		var day = dateStr.substring(6, 8);
+			// 		var date = month + "/" + day + "/" + year;
+
+			// 		var hour = parseInt(dateStr.substring(9, 11));
+			// 		var minute = dateStr.substring(11, 13);
+			// 		var second = dateStr.substring(13, 15);
+			// 		var time = (hour > 12 ? hour - 12 : hour) + ":" + minute + ":" + second + " " + (hour > 12 ? "PM" : "AM");
+
+			// 		newsData.push({
+			// 			Ticker: d.symbol,
+			// 			date: date,
+			// 			close: '',
+			// 			volume: '',
+			// 			sentiment: '',
+			// 			headline: d.headline,
+			// 			News_Body: d.lexicon,
+			// 			Time: time,
+			// 			seq:d.id
+			// 		});
+			// 	});
+			// 	newsData.sort(compareNew);
+			// 	console.log(newsData);
+			// });
+			// $.post( "sentiment.php", {company: company}, function(res) {
+			// 	var data = JSON.parse(res);
+			// 	data.map(function(d) {
+			// 		sentiments.push({
+			// 			Ticker: d.isin,
+			// 			date: d.s_timestamp,
+			// 			close: null,
+			// 			volumn: null,
+			// 			sentiment: d.price
+			// 		});
+			// 	});
+			// })			
+
+		// 	$scope.timer = setInterval(function(){
+		// 		if(totalData.length > 0 && sentiments.length > 0 && newsData.length > 0) {
+		// 			console.log(totalData, sentiments, newsData)
+		// 			clearInterval($scope.timer);
+		// 			sentiments.map(function(d) {
+		// 				totalData.push(d);
+		// 			});
+		// 			totalData.sort(compare);
+		// 			chartData3 = getChartData(totalData, newsData);
+		// 			console.log(chartData3);
+		// 			drawChart(chartData3, newsData);
+		// 			var startInd = getIndex(1, "month", "1m", 0, chartData3);
+		// 			displayNews(startInd, newsData.length-1, -1, newsData);
+		// 		}
+		// 	}, 1000);
+		}
+		d3.json("data/data.json", function(data) {
+			d3.json("data/news.json", function(newsdata) {
+				console.log(getChartData(data, newsdata));
+
 			});
-
-			$.post( "newsdata.php", {company: company}, function(res) {
-				var data = JSON.parse(res);
-
-				data.map(function(d) {
-					var dateStr = d.display_date;
-					var year = dateStr.substring(0, 4);
-					var month = dateStr.substring(4, 6);
-					var day = dateStr.substring(6, 8);
-					var date = month + "/" + day + "/" + year;
-
-					var hour = parseInt(dateStr.substring(9, 11));
-					var minute = dateStr.substring(11, 13);
-					var second = dateStr.substring(13, 15);
-					var time = (hour > 12 ? hour - 12 : hour) + ":" + minute + ":" + second + " " + (hour > 12 ? "PM" : "AM");
-
-					newsData.push({
-						Ticker: d.symbol,
-						date: date,
-						close: '',
-						volume: '',
-						sentiment: '',
-						headline: d.headline,
-						News_Body: d.lexicon,
-						Time: time,
-						seq:d.id
-					});
-				});
-				newsData.sort(compareNew);
-				console.log(newsData);
-			});
-			$.post( "sentiment.php", {company: company}, function(res) {
-				var data = JSON.parse(res);
-				data.map(function(d) {
-					sentiments.push({
-						Ticker: d.isin,
-						date: d.s_timestamp,
-						close: null,
-						volumn: null,
-						sentiment: d.price
-					});
-				});
-			})			
-
-			$scope.timer = setInterval(function(){
-				if(totalData.length > 0 && sentiments.length > 0 && newsData.length > 0) {
-					console.log(totalData, sentiments, newsData)
-					clearInterval($scope.timer);
-					sentiments.map(function(d) {
-						totalData.push(d);
-					});
-					totalData.sort(compare);
-					chartData3 = getChartData(totalData, newsData);
-					console.log(chartData3);
-					drawChart(chartData3, newsData);
-					var startInd = getIndex(1, "month", "1m", 0, chartData3);
-					displayNews(startInd, newsData.length-1, -1, newsData);
-				}
-			}, 1000);
-		}	
+		});
 
 		d3.csv("data/company.csv", function(data) {
 			$scope.companyData = data;
